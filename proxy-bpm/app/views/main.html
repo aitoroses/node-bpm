@@ -1,0 +1,22 @@
+<h1>Request {{requestId}}</h1>
+<div class="divider" style="border-bottom: 1px solid gray"></div>
+<div class="form-group row" style="border-bottom: 1px solid gray">
+	<h3>General</h3>
+	<div class="form-group col-md-6 col-xs-6" ng-repeat="field in general.children">
+		<div class="col-md-6 col-xs-6">
+			<label>{{field.children[1].children[0].val}}</label>
+			<input class="form-control" ng-model="field.children[3].children[0].val" disabled>
+		</div>
+	</div>
+</div>
+</div class="form-group">
+	<h3>Details</h3>
+	<div class="form-group row">
+		<div class="form-group" ng-repeat="field in details.children">
+			<div class="col-md-5 col-xs-5">
+				<label>{{field.children[1].children[0].val}}</label>
+				<input class="form-control" ng-model="field.children[3].children[0].val" disabled>
+			</div>
+		</div>
+	</div>
+</div class="form-group">

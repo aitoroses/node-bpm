@@ -1,0 +1,28 @@
+module.exports="""
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tas="http://xmlns.oracle.com/bpel/workflow/taskQueryService" xmlns:com="http://xmlns.oracle.com/bpel/workflow/common" xmlns:tas1="http://xmlns.oracle.com/bpel/workflow/taskQuery" xmlns:task="http://xmlns.oracle.com/bpel/workflow/task">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tas:taskListRequest>
+         <workflowContext xmlns="http://xmlns.oracle.com/bpel/workflow/common">
+            <token><%- token %></token>
+         </workflowContext>
+         <tas1:taskPredicateQuery>
+            <tas1:predicate>
+               <tas1:assignmentFilter>All</tas1:assignmentFilter>
+               <tas1:clause>
+                     <tas1:column tableName="WFTask">
+                        <tas1:columnName>state</tas1:columnName>
+                     </tas1:column>
+                     <tas1:operator>IN</tas1:operator>
+                     <tas1:valueList>
+                        <tas1:value>ASSIGNED</tas1:value>
+                        <tas1:value>INFO_REQUESTED</tas1:value>
+                        <tas1:value>OUTCOME_UPDATED</tas1:value>
+                     </tas1:valueList>
+                  </tas1:clause>
+            </tas1:predicate>
+         </tas1:taskPredicateQuery>
+      </tas:taskListRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+"""
