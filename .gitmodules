@@ -1,0 +1,7 @@
+[submodule "meteor-workspace"]
+	path = meteor-workspace
+	url = https://github.com/aitoroses/meteor-blaze-seed-app
+	branch = workspace
+[submodule "meteor-webkit"]
+	path = meteor-webkit
+	url = ssh://git@git.foxlab.co/opt/git/node-webkit-iframe.git
