@@ -1,6 +1,6 @@
 [submodule "meteor-workspace"]
 	path = meteor-workspace
-	url = https://github.com/aitoroses/meteor-blaze-seed-app
+	url = ssh://git@git.foxlab.co/opt/git/meteor-workspace.git
 	branch = workspace
 [submodule "meteor-webkit"]
 	path = meteor-webkit
