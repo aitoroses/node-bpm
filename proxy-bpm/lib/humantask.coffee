@@ -1,5 +1,5 @@
 Config = require './config'
-request = require './request'
+request = require('./apiUtils').SoapRequest
 taskQueryServiceUrl = Config.baseUrl + "integration/services/TaskQueryService/TaskQueryService?WSDL"
 findNode = require("./apiUtils").findNode
 getBody = require("./apiUtils").getBody
@@ -71,10 +71,55 @@ getTaskDetailsById = (token, taskId, callback) ->
 
 	request(taskQueryServiceUrl, template, req, doProcess)
 
+#########################
+# App Requests          #
+#########################
+
+API = (app) ->
+
+	app.get '/authenticate' , (req, res) ->
+
+
+		humantask.authenticate req.query.login, req.query.password, (err, result) ->
+
+			if err
+				console.log(err)
+				res.end(JSON.stringify(err))
+			else
+				res.cookie('token', result.token , {maxAge: 60 * 1000 * 5})
+				res.json(result)
+				res.end()
+
+
+	app.get '/humantask', (req, res) ->
+
+		humantask.getTasks req.cookies.token, (err, tasks) ->
+
+			if err
+				console.log(err)
+				res.end(JSON.stringify(err))
+			else
+				res.end(JSON.stringify(tasks))
+
+	app.get '/humantask/:taskId', (req, res) ->
+
+		humantask.getTaskDetailsById req.cookies.token, req.params.taskId, (err, taskDetails) ->
+
+			if err
+				console.log(err)
+				res.end(JSON.stringify(err))
+			else
+				res.end(JSON.stringify(taskDetails))
+
+	app.get "/logout", (req, res) ->
+
+		res.cookie('token', null)
+		res.end JSON.stringify({msg: "Logout succesfull."})
+
 
 ### Module Export ###
 
-humantask.findNode = findNode
+humantask.API = API
 humantask.authenticate = authenticate
 humantask.getTasks = getTasks
 humantask.getTaskDetailsById = getTaskDetailsById

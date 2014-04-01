@@ -1,5 +1,5 @@
 Config = require './config'
-request = require './request'
+request = require('./apiUtils').SoapRequest
 findNode = require("./apiUtils").findNode
 getBody = require("./apiUtils").getBody
 
@@ -17,7 +17,6 @@ service_form_get = (requestId, currentStepId, callback) ->
 	doProcess = (err, response, body) ->
 		doc = getBody(body)
 		data = findNode("ns0:form", doc)
-		console.log(data)
 		if data?
 			callback(null, data)
 		else 
@@ -28,7 +27,26 @@ service_form_get = (requestId, currentStepId, callback) ->
 	# Make soap request
 	request(url, template, data, doProcess)
 
-# Export
 
+
+#########################
+# App Requests          #
+#########################
+
+API = (app) ->
+
+	app.get '/form/:requestId', (req,res) ->
+
+		services.service_form_get req.params.requestId, -1, (err, form) ->
+
+			if err
+				console.log err
+				res.json err
+			else
+				res.json form
+
+
+# Export
+services.API = API
 services.service_form_get = service_form_get
 module.exports = services
