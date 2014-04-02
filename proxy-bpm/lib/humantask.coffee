@@ -86,35 +86,28 @@ API = (app) ->
 				console.log(err)
 				res.end(JSON.stringify(err))
 			else
-				res.cookie('token', result.token , {maxAge: 60 * 1000 * 5})
 				res.json(result)
 				res.end()
 
 
-	app.get '/humantask', (req, res) ->
+	app.post '/humantask', (req, res) ->
 
-		humantask.getTasks req.cookies.token, (err, tasks) ->
-
+		humantask.getTasks req.body.token, (err, tasks) ->
 			if err
 				console.log(err)
 				res.end(JSON.stringify(err))
 			else
 				res.end(JSON.stringify(tasks))
 
-	app.get '/humantask/:taskId', (req, res) ->
+	app.post '/humantask/:taskId', (req, res) ->
 
-		humantask.getTaskDetailsById req.cookies.token, req.params.taskId, (err, taskDetails) ->
+		humantask.getTaskDetailsById req.body.token, req.params.taskId, (err, taskDetails) ->
 
 			if err
 				console.log(err)
 				res.end(JSON.stringify(err))
 			else
 				res.end(JSON.stringify(taskDetails))
-
-	app.get "/logout", (req, res) ->
-
-		res.cookie('token', null)
-		res.end JSON.stringify({msg: "Logout succesfull."})
 
 
 ### Module Export ###

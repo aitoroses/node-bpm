@@ -1,6 +1,6 @@
+_ = require('underscore')
 xmldoc  = require('xmldoc')
 request = require('request')
-_ = require('underscore');
 Config = require "./config"
 
 
