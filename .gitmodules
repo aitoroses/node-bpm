@@ -1,7 +1,7 @@
 [submodule "meteor-workspace"]
 	path = meteor-workspace
-	url = ssh://git@git.foxlab.co/opt/git/meteor-workspace.git
-	branch = workspace
+	url = https://github.com/aitoroses/meteor-workspace.git
+	branch = master
 [submodule "meteor-webkit"]
 	path = meteor-webkit
 	url = ssh://git@git.foxlab.co/opt/git/node-webkit-iframe.git
