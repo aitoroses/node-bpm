@@ -9,6 +9,17 @@ log   = require "../utils/ApiLogger"
 ###
 class ApiUtils
 
+	###
+	# Method to check if some path corresponds to a directory
+	#
+	# @param {String} path, the path to check
+	#
+	# @return {Boolean}, is directory or not
+	#
+	####
+	@isDirectory: (path) ->
+		fs.lstatSync(path).isDirectory()
+
 
 	###
 	# Method to retrieve the filenames of a dir

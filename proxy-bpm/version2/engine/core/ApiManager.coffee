@@ -43,10 +43,23 @@ class ApiManager
 		if not @name?
 			throw Error("Not valid API name.")
 		log.header("API: #{@name}".toUpperCase())
+
 		@_parseTemplates()
 		@_parseTypes()
 		@_parseMessages()
 		@_parseOperations()
+
+		log.cut()
+
+	###
+	# Get the name of the API
+	#
+	# @return {String}
+	#
+	###
+	getName: (templateName) ->
+		return @name
+
 
 	###
 	# Get a template for rendering contents
@@ -107,7 +120,7 @@ class ApiManager
 
 
 	###
-	# Get a soap message for sending to the BPM server
+	# Get a operation to execute it
 	# 
 	# @param {String} messageName, name of the api folder
 	#

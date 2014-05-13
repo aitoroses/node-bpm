@@ -36,5 +36,12 @@ class ApiLogger
 		console.log("----------------------- End debug: #{debugging} -------------------------".inverse.bold.yellow)
 		console.log("")
 
+	@cut: ->
+		console.log("")
+		console.log("------------------------------------------------------".grey)
+		console.log("")
+
+
+
 module.exports = ApiLogger
 
