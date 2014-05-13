@@ -16,6 +16,7 @@
     "coffee-script": "~1.7.1",
     "interfake": "~1.2.0",
     "lodash": "~2.4.1",
-    "async": "~0.8.0"
+    "async": "~0.8.0",
+    "colors": "~0.6.2"
   }
 }

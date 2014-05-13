@@ -1,8 +1,11 @@
 fs	  = require "fs"
 async = require "async"
+log   = require "../utils/ApiLogger"
+
 
 ###
 # Class with util methods on for definitions
+#
 ###
 class ApiUtils
 
@@ -12,7 +15,7 @@ class ApiUtils
 	#
 	# @param {String} path, the path of the file to get filenames from
 	#
-	# @return [{String}, ], an array with the filenames 
+	# @return {Array<String>}, an array with the filenames 
 	#
 	####
 	@readFilesFromDir: (path) ->
@@ -30,7 +33,7 @@ class ApiUtils
 	# @param {function(err, result)} operate, function to do map operation
 	# @param {function(err, result)} callback, return callback
 	#
-	# @callback [{String}, ], maped result on each file returned by callback
+	# @callback {Array<String>}, maped result on each file returned by callback
 	#
 	###
 	@forEachFileInDir: (path, operate, callback) ->
@@ -56,7 +59,7 @@ class ApiUtils
 	# @param {String} path, name of the path to read file contents from
 	# @param {function} callback, return callback
 	#
-	# @callback [{String}], contents array of the files in the folder
+	# @callback {Array<String>}, contents array of the files in the folder
 	#
 	###
 	@getContentsOfFiles: (path, callback) ->
@@ -75,7 +78,7 @@ class ApiUtils
 	# @param {String} path, name of the path to require modules from
 	# @param {function} callback, return callback
 	#
-	# @callback [{String}], required modules in an array
+	# @callback {Array<String>}, required modules in an array
 	#
 	###
 	@requireFilesFromPath: (path, callback) ->
@@ -90,7 +93,7 @@ class ApiUtils
 				loadedModule = require('../../' + path + '/' + split[0])
 				callback(null, {
 					id: split[0],
-					type: loadedModule
+					content: loadedModule
 				})
 		async.map(files, _requireFile, callback)
 
@@ -102,7 +105,8 @@ class ApiUtils
 	# @param {String} type, type of the message
 	#
 	###
-	@log: (type, id)-> console.log("## registered #{type}: #{id}")
+	@log: (type, id) ->
+		log.log("Registered #{type}: " + "#{id}".bold)
 
 
 module.exports = ApiUtils

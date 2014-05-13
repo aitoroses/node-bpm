@@ -1,5 +1,6 @@
 ApiManager = require "./engine/core/ApiManager"
 utils   = require "./engine/utils/ApiUtils"
+logger = require "./engine/utils/ApiLogger"
 
 api = new ApiManager "authenticate"
 
@@ -12,18 +13,12 @@ api = new ApiManager "authenticate"
 
 setTimeout ->
 
+	Credential = api.getType("Credential")
+	AuthenticateOperation = api.getOperation("AuthenticateOperation")
 
-	#console.log(api)
-
-	console.log(api.getType("Credential"))
-	template = api.getTemplate("credential")
-
-	credential = template
-		login: "comdirector15"
-		password: "welcome1"
+	op = new AuthenticateOperation(new Credential("comdirector15", "welcome1"))
 	
-
-	console.log credential
-
+	logger.debug("authenticate message" ,op.message())
 
 , 1000
+
