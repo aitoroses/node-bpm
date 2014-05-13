@@ -39,8 +39,14 @@ class ApiServer
 
 		for operation in operations
 			log.log("GET /#{name}/#{operation.id}")
-			handler = new operation.content
-			@http.get("/#{name}/#{operation.id}", handler.callback.bind(api))
+			handler = new operation.content()
+			handler.api = api
+			@http.get("/#{name}/#{operation.id}", handler.callback.bind(handler))
+
+			# Stub data
+			if (handler.stubData?)
+				@http.get("/#{name}/#{operation.id}/stub", (req, res) -> 
+					res.end(handler.stubData.bind(handler)(req, res)));
 
 
 	###

@@ -10,6 +10,7 @@ class AuthenticateOperation
 	###
 	constructor: (@credential) ->
 
+
 	###
 	# Builds the message of the operation
 	#
@@ -33,14 +34,37 @@ class AuthenticateOperation
 	###
 	callback: (req, res) ->
 
+		# Get the attributes of the request
+		login    = req.query.login
+		password = req.query.password
+		
+		Credential = @api.getType("Credential")
+		@credential = new Credential(login,password)
+
+		# At this point we should query something to the BPM server
+
+		res.end("Finish this call using request")
+
+
+	###
+	# @method to check the message that we are sending to the BPM engine
+	#
+	# @param {Request} req, request object
+	# @param {Response} res, respose object
+	#
+	###
+	stubData: (req, res) ->
+
 		# Get the atributtes of the request
 		login    = req.query.login
 		password = req.query.password
 		
-		Credential = @getType("Credential")
-		op = new AuthenticateOperation(new Credential(login,password))
+		Credential = @api.getType("Credential")
+		this.credential = new Credential(login,password)
 
-		console.log(op.message())
+		# Check the returned message
+
+		return @message()
 
 
 module.exports = AuthenticateOperation
