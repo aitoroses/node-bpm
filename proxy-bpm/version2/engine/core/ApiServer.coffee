@@ -54,10 +54,13 @@ class ApiServer
 			handler.request = (callback) ->
 				if not api.config.uri? then throw Error("No uri attribute was defined in config.")
 				_uri = _this.serverURL + api.config.uri
+
 				if not @message? then throw Error("No message function was defined.")
 				_message = @message()
+
 				ServerUtils.makeSoapRequest(_uri, _message, callback)
 
+			# Register HTTP handlers for the API
 			@http.get("/#{name}/#{operation.id}", handler.callback.bind(handler))
 
 			# Stub data
