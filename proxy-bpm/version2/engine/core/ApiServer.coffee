@@ -1,7 +1,9 @@
-ApiEngine = require "./ApiEngine"
-utils     = require "../utils/ApiUtils"
-log       = require "../utils/ApiLogger"
-Express   = require "Express"
+ApiEngine     = require "./ApiEngine"
+utils         = require "../utils/ApiUtils"
+log           = require "../utils/ApiLogger"
+Express       = require "Express"
+ServerUtils   = require "../utils/ServerUtils"
+
 
 # ApiServer class creates a server
 #
@@ -11,7 +13,9 @@ class ApiServer
 	# Construct an HTTP Server based on the API inside the engine
 	#
 	###
-	constructor: () ->
+	constructor: (serverURL) ->
+
+		@serverURL = "http://" + serverURL
 
 		log.cut()
 
@@ -34,13 +38,26 @@ class ApiServer
 	###
 	_registerAPI: (api) ->
 
+		_this = @
+
 		name = api.getName()
 		operations = api._operations
 
 		for operation in operations
 			log.log("GET /#{name}/#{operation.id}")
 			handler = new operation.content()
+
+			# Set up context variables
 			handler.api = api
+
+			# Give the request method to the context
+			handler.request = (callback) ->
+				if not api.config.uri? then throw Error("No uri attribute was defined in config.")
+				_uri = _this.serverURL + api.config.uri
+				if not @message? then throw Error("No message function was defined.")
+				_message = @message()
+				ServerUtils.makeSoapRequest(_uri, _message, callback)
+
 			@http.get("/#{name}/#{operation.id}", handler.callback.bind(handler))
 
 			# Stub data
@@ -60,6 +77,7 @@ class ApiServer
 			log.cut()
 			log.header("Server finished starting, listening on port #{port}")
 		)
+
 
 module.exports = ApiServer
 

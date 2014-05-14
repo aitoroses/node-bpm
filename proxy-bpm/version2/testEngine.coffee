@@ -1,6 +1,6 @@
 ApiEngine = require "./engine/core/ApiEngine"
-utils   = require "./engine/utils/ApiUtils"
 logger = require "./engine/utils/ApiLogger"
+
 
 engine = new ApiEngine();
 

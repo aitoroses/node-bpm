@@ -18,12 +18,10 @@ class AuthenticateOperation
 	#
 	###
 	message: () ->
-
 		AuthenticationMessage = @api.getMessage("AuthenticationRequestMessage")
-
 		authenticationMessage = new AuthenticationMessage(@credential)
-
 		return authenticationMessage.toXML()
+
 
 	###
 	# Callback for the HTTP request
@@ -33,7 +31,6 @@ class AuthenticateOperation
 	#
 	###
 	callback: (req, res) ->
-
 		# Get the attributes of the request
 		login    = req.query.login
 		password = req.query.password
@@ -42,8 +39,9 @@ class AuthenticateOperation
 		@credential = new Credential(login,password)
 
 		# At this point we should query something to the BPM server
-
-		res.end("Finish this call using request")
+		@request (err, response, body)->
+			res.end(body)
+		
 
 
 	###
@@ -54,7 +52,6 @@ class AuthenticateOperation
 	#
 	###
 	stubData: (req, res) ->
-
 		# Get the atributtes of the request
 		login    = req.query.login
 		password = req.query.password

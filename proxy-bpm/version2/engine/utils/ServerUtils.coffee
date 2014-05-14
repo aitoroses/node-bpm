@@ -1,15 +1,16 @@
-fs	    = require "fs"
-async   = require "async"
-log     = require "../utils/ApiLogger"
-xmldoc  = require('xmldoc')
-request = require('request')
+async    = require "async"
+log      = require "../utils/ApiLogger"
+xmldoc   = require('xmldoc')
+request  = require('request')
 
 
 ###
 # Class with useful static methods for manipulating request conversions
+# and sending requests to the BPM engine
 #
 ###
 class ServerUtils
+
 
 	###
 	# Get a template for rendering contents
@@ -22,7 +23,7 @@ class ServerUtils
 	# @return {XMLDoc}, return the node that we searched
 	#
 	###
-	findNode: (nodeName, xml) ->
+	@findNode: (nodeName, xml) ->
 		iterateOverChildren = (children)->
 			parents = []
 			for child in children
@@ -36,13 +37,31 @@ class ServerUtils
 		if xml.name is nodeName then return xml
 		else return iterateOverChildren(xml.children)
 
-				
-	getBody: (xml) ->
+
+	###
+	# Get the body of the xml document
+	#
+	# @param {String} xml, XML pure string to be converted
+	#
+	# @return {XMLDoc}, xmldoc converted message
+	#
+	###			
+	@getBody: (xml) ->
 		document = new xmldoc.XmlDocument(xml);
 		return document.children[1]
 
 
-	makeSoapRequest: (uri, message, callback) ->
+	###
+	# Get the body of the xml document
+	#
+	# @param {uri} uri, XML pure string to be converted
+	# @param {String} message, XML pure string to be converted
+	# @param {Function} callback, XML pure string to be converted
+	#
+	# @return {XMLDoc}, xmldoc converted message
+	#
+	###		
+	@makeSoapRequest: (uri, message, callback) ->
 
 		request(
 			method: 'POST',

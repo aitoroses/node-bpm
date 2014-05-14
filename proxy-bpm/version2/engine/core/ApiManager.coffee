@@ -2,6 +2,7 @@ utils = require "../utils/ApiUtils"
 log   = require "../utils/ApiLogger"
 _     = require "lodash"
 
+
 ###
 # Class for loading API's and their messages, operations, types...
 #
@@ -11,6 +12,7 @@ class ApiManager
 	# Path names
 	#
 	@API_DIR: "api"
+	@CONFIG_PATH: "config"
 	@TEMPLATE_DIR: "templates"
 	@TYPES_DIR: "types"
 	@MESSAGES_DIR: "messages"
@@ -48,6 +50,10 @@ class ApiManager
 		@_parseTypes()
 		@_parseMessages()
 		@_parseOperations()
+
+		# load configuration
+		config = require("../../#{ApiManager.API_DIR}/#{@name}/#{ApiManager.CONFIG_PATH}");
+		@config = config
 
 		log.cut()
 
