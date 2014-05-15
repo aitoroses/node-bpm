@@ -23,6 +23,15 @@ class ApiLogger
 		console.log( ("  # " + message).green.bold)
 
 	###
+	# Log irrelevant messages
+	#
+	# @param {String} message, message to debug
+	#
+	###
+	@irrelevant: (message) ->
+		console.log( ("   # " + message).grey.bold)
+
+	###
 	# Debug for debugging
 	#
 	# @param {String} debugging, what is being debugged

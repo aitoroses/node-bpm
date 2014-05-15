@@ -45,22 +45,8 @@ class ApiServer
 		operations = api._operations
 
 		for operation in operations
-			log.log("GET /#{name}/#{operation.id}")
-			handler = new operation.content()
 
-			# Set up context variables
-			handler.api = api
-
-			# Give the request method to the context
-			handler.request = _request.bind(handler)
-
-			# Register HTTP handlers for the API
-			@http.get("/#{name}/#{operation.id}", handler.callback.bind(handler))
-
-			# Stub data
-			if (handler.stubData?)
-				@http.get("/#{name}/#{operation.id}/stub", (req, res) -> 
-					res.end(handler.stubData.bind(handler)(req, res)));
+			_handlers.call(@, api, operation)
 
 
 	###
@@ -74,6 +60,63 @@ class ApiServer
 			log.cut()
 			log.header("Server finished starting, listening on port #{port}")
 		)
+
+
+###
+# Register handlers for each api operation
+#
+# @method
+#
+# @param {Object} operation, operation object
+#
+###
+_handlers = (api, operation) ->
+
+	base = "/#{api.getName()}/#{operation.id}"
+	log.log("GET #{base}")
+
+	op = new operation.content()
+
+	handlerObjects = [
+
+		url: ""
+		handler: op.callback
+	,	
+		url: "/stub"
+		handler: (req, res) -> res.end(op.stubData(req, res));
+		debug: true
+	,
+		url: "/request"
+		handler: ->
+		debug: true
+	,
+		url: "/response"
+		handler: ->
+		debug: true
+	]
+
+	handlerObjects.map ((handlerObject) ->
+
+		_url = handlerObject.url
+		# Set the context for the handler
+		_handler = handlerObject.handler.bind(op)
+
+		# Set up context variables
+		op.api = api
+		# Give the request method to the context
+		op.request = _request.bind(op)
+
+		# Register as a GET method
+		if handlerObject.debug
+			if api.config.debug
+				log.irrelevant "Debug GET #{base + _url}"
+				@http.get(base + _url, _handler)
+		else
+			@http.get(base + _url, _handler)
+
+
+	).bind(@)
+
 
 
 

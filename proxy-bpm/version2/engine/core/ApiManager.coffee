@@ -97,9 +97,9 @@ class ApiManager
 			throw Error("No typeName is given.")
 		for type in @_types
 			if type.id == typeName
-				# Add toXML method to the returned type
-				type.content.prototype.toXML = -> 
-					_this.getTemplate(type.content.TEMPLATE)(this)
+				# # Add toXML method to the returned type
+				# type.content.prototype.toXML = -> 
+				# 	_this.getTemplate(type.content.TEMPLATE)(this)
 				return type.content
 		return undefined
 
@@ -164,7 +164,10 @@ class ApiManager
 		_this = @
 		utils.requireFilesFromPath "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.TYPES_DIR}", (err, results) ->
 			_this._types = results
-			for each in results
+			for each in _this._types
+				# Add toXML method to the returned type
+				each.content.prototype.toXML = -> 
+					_this.getTemplate(each.content.TEMPLATE)(this)
 				utils.log("type",each.id.magenta)
 
 
