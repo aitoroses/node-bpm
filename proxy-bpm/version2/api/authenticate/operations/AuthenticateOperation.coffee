@@ -60,7 +60,6 @@ class AuthenticateOperation
 		this.credential = new Credential(login,password)
 
 		# Check the returned message
-
 		return @message()
 
 
