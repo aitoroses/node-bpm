@@ -52,7 +52,7 @@ class ServerUtils
 
 
 	###
-	# Get the body of the xml document
+	# Send a message to the BPM engine
 	#
 	# @param {uri} uri, XML pure string to be converted
 	# @param {String} message, XML pure string to be converted
@@ -62,7 +62,6 @@ class ServerUtils
 	#
 	###		
 	@makeSoapRequest: (uri, message, callback) ->
-
 		request(
 			method: 'POST',
 			uri: uri

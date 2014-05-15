@@ -1,7 +1,7 @@
 ApiEngine     = require "./ApiEngine"
 utils         = require "../utils/ApiUtils"
 log           = require "../utils/ApiLogger"
-Express       = require "Express"
+express       = require "Express"
 ServerUtils   = require "../utils/ServerUtils"
 
 
@@ -19,7 +19,8 @@ class ApiServer
 
 		log.cut()
 
-		@http = Express()
+		@http = express()
+		@http.use express.logger('dev')
 
 		@_engine = new ApiEngine();
 		log.cut()
@@ -74,24 +75,94 @@ _handlers = (api, operation) ->
 
 	base = "/#{api.getName()}/#{operation.id}"
 	log.log("GET #{base}")
-
+	if (api.config.debug) then log.irrelevant("#{@serverURL}#{api.config.uri}")
+	
 	op = new operation.content()
 
 	handlerObjects = [
 
 		url: ""
-		handler: op.callback
+		handler: (req, res) ->
+			# Define first the context
+			_request.call({
+				api: api
+				message: ->
+					# Get the model
+					model = op.model.call({api: api, query: req.query});
+					modelXML = model.toXML();
+					# Get the Message
+					Message = api.getMessage(op.constructor.MESSAGE)
+					# Instantiate the message
+					send = new Message(model)
+					send.toXML()
+			}, (err, response, body) ->
+				
+				if err
+					return res.end(JSON.stringify(err))
+				else
+					xmldoc = ServerUtils.getBody(body)
+					nodes = op.process.call(body)
+					processedNodes = nodes.map((node) -> 
+						result = ServerUtils.findNode(node, xmldoc)
+						result.firstChild = result.lastChild = undefined
+						return result
+					)
+					res.json(processedNodes)
+			)
 	,	
-		url: "/stub"
-		handler: (req, res) -> res.end(op.stubData(req, res));
+
+		url: "/model"
+		handler: (req, res) ->
+			data = op.model.call({api: api, query: req.query});
+			res.end(JSON.stringify(data));
 		debug: true
+	,	
+
+		url: "/modelXML"
+		handler: (req, res) ->
+			# Get the model
+			model = op.model.call({api: api, query: req.query});
+			res.end(model.toXML();)
+		debug: true
+
 	,
 		url: "/request"
-		handler: ->
+		handler: (req, res) ->
+			# Get the model
+			model = op.model.call({api: api, query: req.query});
+			modelXML = model.toXML();
+			# Get the Message
+			Message = api.getMessage(op.constructor.MESSAGE)
+			# Instantiate the message
+			send = new Message(model)
+			res.header({"Content-Type": "application/xml"})
+			res.end(send.toXML())
 		debug: true
 	,
+
 		url: "/response"
-		handler: ->
+		handler: (req, res) ->
+			_this = @
+			# Define first the context
+			_request.call({
+				api: api
+				message: ->
+					# Get the model
+					model = op.model.call({api: api, query: req.query});
+					modelXML = model.toXML();
+					# Get the Message
+					Message = api.getMessage(op.constructor.MESSAGE)
+					# Instantiate the message
+					send = new Message(model)
+					send.toXML()
+			}, (err, response, body) ->
+				if err
+					return res.end(JSON.stringify(err))
+				else
+					JSONResponse = op.process.call(body)
+					res.header({"Content-Type": "application/xml"})
+					res.end(body)
+			)
 		debug: true
 	]
 
@@ -103,8 +174,8 @@ _handlers = (api, operation) ->
 
 		# Set up context variables
 		op.api = api
-		# Give the request method to the context
-		op.request = _request.bind(op)
+		# # Give the request method to the context
+		# op.request = _request.bind(op)
 
 		# Register as a GET method
 		if handlerObject.debug

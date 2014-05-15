@@ -2,65 +2,36 @@
 #
 class AuthenticateOperation
 
+	@MESSAGE: "AuthenticationRequestMessage"
+
 	###
-	# Construct new Request
+	# Construct new Operation
 	#
-	# @param {Credential} credential, credentials of the user
+	# @param {Credential} model, credentials of the user
 	#
 	###
 	constructor: (@credential) ->
 
 
 	###
-	# Builds the message of the operation
+	# Return the model for the message
 	#
-	# @return {AuthenticationMessage}
-	#
-	###
-	message: () ->
-		AuthenticationMessage = @api.getMessage("AuthenticationRequestMessage")
-		authenticationMessage = new AuthenticationMessage(@credential)
-		return authenticationMessage.toXML()
-
-
-	###
-	# Callback for the HTTP request
-	#
-	# @param {Request} req, request object
-	# @param {Response} res, respose object
+	# @return {Object}, Model object type
 	#
 	###
-	callback: (req, res) ->
-		# Get the attributes of the request
-		login    = req.query.login
-		password = req.query.password
-		
+	model: ->
 		Credential = @api.getType("Credential")
-		@credential = new Credential(login,password)
-
-		# At this point we should query something to the BPM server
-		@request (err, response, body)->
-			res.end(body)
-		
+		new Credential(@query.login, @query.password)
 
 
 	###
-	# @method to check the message that we are sending to the BPM engine
+	# Return some nodes on the response
 	#
-	# @param {Request} req, request object
-	# @param {Response} res, respose object
+	# @return {Array<Strings>}, Array of node names to be processed
 	#
 	###
-	stubData: (req, res) ->
-		# Get the atributtes of the request
-		login    = req.query.login
-		password = req.query.password
-		
-		Credential = @api.getType("Credential")
-		this.credential = new Credential(login,password)
+	process: -> ["faultcode", "message"]
 
-		# Check the returned message
-		return @message()
 
 
 module.exports = AuthenticateOperation
