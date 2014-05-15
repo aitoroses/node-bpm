@@ -1,4 +1,5 @@
 module.exports = 
 
-	uri: "/integration/services/TaskQueryService/TaskQueryService?WSDL"
+	uri: "/mockTaskQueryServiceSOAPBinding?WSDL"
+	#uri: "/integration/services/TaskQueryService/TaskQueryService?WSDL"
 	debug: true

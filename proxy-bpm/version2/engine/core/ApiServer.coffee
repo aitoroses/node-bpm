@@ -102,11 +102,29 @@ _handlers = (api, operation) ->
 				else
 					xmldoc = ServerUtils.getBody(body)
 					nodes = op.process.call(body)
-					processedNodes = nodes.map((node) -> 
-						result = ServerUtils.findNode(node, xmldoc)
-						result.firstChild = result.lastChild = undefined
-						return result
-					)
+
+					# If nodes it's an array
+					if nodes.length?
+						processedNodes = nodes.map((node) -> 
+							result = ServerUtils.findNode(node, xmldoc)
+							result.firstChild = result.lastChild = undefined
+							return result
+						)
+					else
+						processedNodes = {}
+						for node,fn of nodes
+
+							finder = ServerUtils.findNode
+							finded = finder(node, xmldoc)
+							finderFn = (node) -> finder(node, finded)
+
+							key = node.split(":")
+							key = if key.length == 2 then key[1] else key[0]
+							result = fn.call({find: finderFn, node: finded})
+							if result?
+								result.firstChild = result.lastChild = undefined
+							processedNodes[key] = result
+
 					res.json(processedNodes)
 			)
 	,	

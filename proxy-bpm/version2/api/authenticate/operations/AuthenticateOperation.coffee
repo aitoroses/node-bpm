@@ -24,13 +24,29 @@ class AuthenticateOperation
 		new Credential(@query.login, @query.password)
 
 
+	# ###
+	# # Return some nodes on the response
+	# #
+	# # @return {Array<Strings>}, Array of node names to be processed
+	# #
+	# ###
+	# process: -> ["faultcode", "message"]
+
 	###
 	# Return some nodes on the response
 	#
 	# @return {Array<Strings>}, Array of node names to be processed
 	#
 	###
-	process: -> ["faultcode", "message"]
+	process: -> 
+		"com:workflowContext": -> 
+			credential: 
+				login: @find("com:login").val
+				password: @find("com:password").val
+			token: @find("com:token").val
+			locale: @find("com:locale").val
+			timezone: @find("com:timeZone").val
+	
 
 
 
