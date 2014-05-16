@@ -5,16 +5,11 @@ express       = require "Express"
 ApiHandlers   = require "../core/ApiHandlers"
 
 
-###
-ApiServer class creates a server
-@class
-###
+# ApiServer class creates a server
 class ApiServer
 
-	###
-	Construct an HTTP Server based on the API inside the engine
-	@constructor
-	###
+	# Construct an HTTP Server based on the API inside the engine
+	# @param [String] serverURL Host where lives the BPM Engine
 	constructor: (serverURL) ->
 
 		@serverURL = "http://" + serverURL
@@ -34,11 +29,9 @@ class ApiServer
 			@_registerAPI(api)
 
 
-	###
-	Inner method to register an API, mapping it's operations to HTTP handlers
-	@method _registerApi
-	@param {ApiManager} api, API server is gonna register
-	###
+	# Inner method to register an API, mapping it's operations to HTTP handlers
+	# @param [ApiManager] api API server is gonna register
+	# @private
 	_registerAPI: (api) ->
 
 		# Reference to server into the api
@@ -52,11 +45,8 @@ class ApiServer
 			_handlers.call(@, api, operation)
 
 
-	###
-	Make the server listel to requests
-	@method listen
-	@param {Integer} port, Port to listen on
-	###
+	# Make the server listel to requests
+	# @param [Integer] port Port to listen on
 	listen: (port) ->
 		@http.listen(port, ->
 			log.cut()
@@ -64,10 +54,10 @@ class ApiServer
 		)
 
 
-###
-Register handlers for each api operation
-@param {Object} operation, operation object
-###
+# Register handlers for each api operation
+# @param [Object] operation Operation object
+# @param [ApiManager] api ApiManager object
+# @private
 _handlers = (api, operation) ->
 
 	base = "/#{api.getName()}/#{operation.id}"

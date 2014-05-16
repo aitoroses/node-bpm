@@ -1,5 +1,4 @@
-# Credential class
-
+# Abstracts the credential type
 class Credential
 
 	# Name of the XML template of credential

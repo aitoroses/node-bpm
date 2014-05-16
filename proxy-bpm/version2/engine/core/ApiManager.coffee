@@ -3,50 +3,35 @@ log   = require "../utils/ApiLogger"
 _     = require "lodash"
 
 
-###
-Class for loading API's and their messages, operations, types...
-@class
-###
+# Class for loading API's and their messages, operations, types...
 class ApiManager
 
-	###
-	@static Path names
-	###
+	# @property [String]
 	@API_DIR: "api"
+	# @property [String]
 	@CONFIG_PATH: "config"
+	# @property [String]
 	@TEMPLATE_DIR: "templates"
+	# @property [String]
 	@TYPES_DIR: "types"
+	# @property [String]
 	@MESSAGES_DIR: "messages"
+	# @property [String]
 	@OPERATIONS_DIR: "operations"
 
 
-	###
-	{Array<Object>[:id, :content]}
-	###
-	_templates:  []
-
-	
-	###
-	{Array<Object>[:id, :content]}
-	###
+	# @property [Array<:id, :content>]
+	@_templates:  []
+	# @property [Array<:id, :content>]
 	_types:      []
-	
-	###
-	{Array<Object>[:id, :content]}
-	###
+	# @property [Array<:id, :content>]
 	_messages:   []
-	
-	###
-	{Array<Object>[:id, :content]}
-	###
+	# @property [Array<:id, :content>]
 	_operations: []
 
 
-	###
-	Construct a new named api and load its dependencies
-	@constructor
-	@param {String} name, name of the api folder
-	###
+	# Construct a new named api and load its dependencies
+	# @param [String] name Name of the api folder
 	constructor: (@name) ->
 		if not @name?
 			throw Error("Not valid API name.")
@@ -63,20 +48,15 @@ class ApiManager
 
 		log.cut()
 
-	###
 	# Get the name of the API
-	# @return {String}
-	###
+	# @return [String] Returns the name
 	getName: (templateName) ->
 		return @name
 
 
-	###
-	Get a template for rendering contents
-	@method
-	@param {String} templateName, name of the api folder
-	@return {Object}, return a lodash template
-	###
+	# Get a template for rendering contents
+	# @param [String] templateName name of the api folder
+	# @return [Object] return a lodash template
 	getTemplate: (templateName) ->
 		if not templateName?
 			throw Error("No templateName is given.")
@@ -85,12 +65,9 @@ class ApiManager
 		return undefined
 	
 
-	###
-	Get a type that operates with a template for rendering contents
-	@method
-	@param {String} typeName, name of the api folder
-	@return {Object}, return a type mapped to a template
-	###
+	# Get a type that operates with a template for rendering contents
+	# @param [String] typeName name of the api folder
+	# @return [Object] Return a type mapped to a template
 	getType: (typeName) ->
 		_this = @
 		if not typeName?
@@ -103,12 +80,9 @@ class ApiManager
 				return type.content
 		return undefined
 
-	###
-	Get a soap message for sending to the BPM server
-	@method
-	@param {String} messageName, name of the api folder
-	@return {Object}, return a message type
-	###
+	# Get a soap message for sending to the BPM server
+	# @param [String] messageName, name of the api folder
+	# @return [Object], return a message type
 	getMessage: (messageName) ->
 		_this = @
 		if not messageName?
@@ -123,12 +97,9 @@ class ApiManager
 		return undefined
 
 
-	###
-	Get a operation to execute it
-	@method
-	@param {String} messageName, name of the api folder
-	@return {Object}, return a message type
-	###
+	# Get a operation to execute it
+	# @param [String] messageName, name of the api folder
+	# @return [Object], return a message type
 	getOperation: (operationName) ->
 		if not operationName?
 			throw Error("No operationName is given.")
@@ -140,10 +111,8 @@ class ApiManager
 		return undefined
 
 
-	###
-	Inner function for initialize api templates in the constructor
-	@method
-	###
+	# Inner function for initialize api templates in the constructor
+	# @private
 	_parseTemplates: ->
 		_this = @
 		utils.getContentsOfFiles "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.TEMPLATE_DIR}", (err, results) ->
@@ -152,10 +121,8 @@ class ApiManager
 				utils.log("template", each.id.white)
 
 
-	###
-	Inner function for initialize api templates in the constructor
-	@method
-	###
+	# Inner function for initialize api templates in the constructor
+	# @private
 	_parseTypes: ->
 		_this = @
 		utils.requireFilesFromPath "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.TYPES_DIR}", (err, results) ->
@@ -167,10 +134,8 @@ class ApiManager
 				utils.log("type",each.id.magenta)
 
 
-	###
-	Inner function for initialize api messages in the constructor
-	@method
-	###
+	# Inner function for initialize api messages in the constructor
+	# @private
 	_parseMessages: ->
 		_this = @
 		utils.requireFilesFromPath "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.MESSAGES_DIR}", (err, results) ->
@@ -179,10 +144,8 @@ class ApiManager
 				utils.log("message",each.id.blue)
 
 
-	###
-	Inner function for initialize operations in the constructor
-	@method
-	###
+	# Inner function for initialize operations in the constructor
+	# @private
 	_parseOperations: ->
 		_this = @
 		utils.requireFilesFromPath "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.OPERATIONS_DIR}", (err, results) ->

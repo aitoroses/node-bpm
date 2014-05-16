@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='UTF-8'>
+  <title>CoffeeScript API Documentation</title>
+  <script src='../javascript/application.js'></script>
+  <script src='../javascript/search.js'></script>
+  <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
+</head>
+  <body>
+    <div id='base' data-path='../'></div>
+<div id='header'>
+  <div id='menu'>
+    <a href='../alphabetical_index.html' title='Index'>
+      Index
+    </a>
+    &raquo;
+    <span class='title'>ApiUtils</span>
+  </div>
+</div>
+    <div id='content'>
+      <h1>
+        Class:
+        ApiUtils
+      </h1>
+      <table class='box'>
+        <tr>
+          <td>Defined in:</td>
+          <td>engine&#47;utils&#47;ApiUtils.coffee</td>
+        </tr>
+      </table>
+      <h2>Overview</h2>
+      <div class='docstring'>
+  <p>Class with util methods for API definitions</p>
+</div>
+<div class='tags'>
+</div>
+      <h2>Class Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#isDirectory-static'>
+        .
+(Boolean)
+<b>isDirectory</b><span>(path)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Method to check if some path corresponds to a directory 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#readFilesFromDir-static'>
+        .
+(Array&lt;String&gt;)
+<b>readFilesFromDir</b><span>(path)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Method to retrieve the filenames of a dir 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#forEachFileInDir-static'>
+        .
+(void)
+<b>forEachFileInDir</b><span>(path, operate, callback)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Do some action for each file in folder 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#getContentsOfFile-static'>
+        .
+(String)
+<b>getContentsOfFile</b><span>(file)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Return the string contents of a file 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#getContentsOfFiles-static'>
+        .
+(void)
+<b>getContentsOfFiles</b><span>(path, callback)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Return the string contents of the file into one folder 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#requireFilesFromPath-static'>
+        .
+(void)
+<b>requireFilesFromPath</b><span>(path, callback)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Return the required modules 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#log-static'>
+        .
+(void)
+<b>log</b><span>(type, id)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Log into console the object that it&#39;s getting registered 
+    </span>
+  </li>
+</ul>
+      <h2>Class Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='isDirectory-static'>
+      .
+(Boolean)
+<b>isDirectory</b><span>(path)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Method to check if some path corresponds to a directory</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>path,</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the path to check </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='readFilesFromDir-static'>
+      .
+(Array&lt;String&gt;)
+<b>readFilesFromDir</b><span>(path)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Method to retrieve the filenames of a dir</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>path</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the path of the file to get filenames from </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Array&lt;String&gt;</tt>
+      )
+      &mdash;
+      <span class='desc'>an array with the filenames  </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='forEachFileInDir-static'>
+      .
+(void)
+<b>forEachFileInDir</b><span>(path, operate, callback)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Do some action for each file in folder</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>path,</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the path of the file to get filenames from </span>
+    </li>
+    <li>
+      <span class='name'>operate</span>
+      <span class='type'>
+        (
+          <tt>function(err, result)</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>function to do map operation </span>
+    </li>
+    <li>
+      <span class='name'>callback</span>
+      <span class='type'>
+        (
+          <tt>function(err, result)</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>returns callback {Array<String>}  </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='getContentsOfFile-static'>
+      .
+(String)
+<b>getContentsOfFile</b><span>(file)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Return the string contents of a file</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>file,</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>name of the file to read contents from </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      <tt>String</tt>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='getContentsOfFiles-static'>
+      .
+(void)
+<b>getContentsOfFiles</b><span>(path, callback)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Return the string contents of the file into one folder</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>path,</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>name of the path to read file contents from </span>
+    </li>
+    <li>
+      <span class='name'>callback</span>
+      <span class='type'>
+        (
+          <tt>function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Returns [Array<String>] contents array of the files in the folder </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='requireFilesFromPath-static'>
+      .
+(void)
+<b>requireFilesFromPath</b><span>(path, callback)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Return the required modules</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>path,</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>name of the path to require modules from </span>
+    </li>
+    <li>
+      <span class='name'>callback</span>
+      <span class='type'>
+        (
+          <tt>function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Returns {Array<String>} required modules in an array </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='log-static'>
+      .
+(void)
+<b>log</b><span>(type, id)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Log into console the object that it&#39;s getting registered</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>id</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Name of the api message to print </span>
+    </li>
+    <li>
+      <span class='name'>type</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>Type of the message </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+    </div>
+    <div id='footer'>
+  May 16, 14 12:38:33 by
+  <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
+    Codo
+  </a>
+  2.0.8
+  &#10034;
+  Press H to see the keyboard shortcuts
+  &#10034;
+  <a href='http://twitter.com/netzpirat' target='_parent'>@netzpirat</a>
+  &#10034;
+  <a href='http://twitter.com/_inossidabile' target='_parent'>@_inossidabile</a>
+</div>
+<iframe id='search_frame'></iframe>
+<div id='fuzzySearch'>
+  <input type='text'>
+  <ol></ol>
+</div>
+<div id='help'>
+  <p>
+    Quickly fuzzy find classes, mixins, methods, file:
+  </p>
+  <ul>
+    <li>
+      <span>T</span>
+      Open fuzzy finder dialog
+    </li>
+  </ul>
+  <p>
+    Control the navigation frame:
+  </p>
+  <ul>
+    <li>
+      <span>L</span>
+      Toggle list view
+    </li>
+    <li>
+      <span>C</span>
+      Show class list
+    </li>
+    <li>
+      <span>I</span>
+      Show mixin list
+    </li>
+    <li>
+      <span>F</span>
+      Show file list
+    </li>
+    <li>
+      <span>M</span>
+      Show method list
+    </li>
+    <li>
+      <span>E</span>
+      Show extras list
+    </li>
+  </ul>
+  <p>
+    You can focus and blur the search input:
+  </p>
+  <ul>
+    <li>
+      <span>S</span>
+      Focus search input
+    </li>
+    <li>
+      <span>Esc</span>
+      Blur search input
+    </li>
+  </ul>
+</div>
+  </body>
+</html>

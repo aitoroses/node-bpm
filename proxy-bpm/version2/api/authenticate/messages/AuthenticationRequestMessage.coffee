@@ -1,14 +1,12 @@
 # RequestAuthenticationMessage class
-#
 class AuthenticationRequestMessage
 
 	# Name of the XML template of AuthenticationRequestMessage
+	# @property [String]
 	@TEMPLATE: "authenticationRequestMessage"
 
 	# Construct new Request
-	#
-	# @param {Credential} credential, the login name of the user
-	#
+	# @param [Credential] credential The credentials of the user
 	constructor: (@credential) ->
 
 

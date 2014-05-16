@@ -3,28 +3,19 @@ async = require "async"
 log   = require "../utils/ApiLogger"
 
 
-###
-Class with util methods for API definitions
-@class
-###
+# Class with util methods for API definitions
 class ApiUtils
 
-	###
-	Method to check if some path corresponds to a directory
-	@method
-	@static
-	@param {String} path, the path to check
-	@return {Boolean}, is directory or not
-	####
+	# Method to check if some path corresponds to a directory
+	# @param [String] path, the path to check
+	# @return {Boolean}, is directory or not
 	@isDirectory: (path) ->
 		fs.lstatSync(path).isDirectory()
 
 
-	###
-	Method to retrieve the filenames of a dir
-	@param {String} path, the path of the file to get filenames from
-	@return {Array<String>}, an array with the filenames 
-	####
+	# Method to retrieve the filenames of a dir
+	# @param [String] path the path of the file to get filenames from
+	# @return [Array<String>] an array with the filenames 
 	@readFilesFromDir: (path) ->
 		files = []
 		_files = fs.readdirSync(path);
@@ -33,38 +24,25 @@ class ApiUtils
 		return files
 
 
-	###
-	Do some action for each file in folder
-	@method
-	@static
-	@param {String} path, the path of the file to get filenames from
-	@param {function(err, result)} operate, function to do map operation
-	@param {function(err, result)} callback, returns callback {Array<String>} 
-	maped result on each file returned by callback
-	###
+	# Do some action for each file in folder
+	# @param [String] path, the path of the file to get filenames from
+	# @param [function(err, result)] operate function to do map operation
+	# @param [function(err, result)] callback returns callback {Array<String>} 
 	@forEachFileInDir: (path, operate, callback) ->
 		files = ApiUtils.readFilesFromDir(path)
 		async.map(files, operate, callback);
 
 
-	###
-	Return the string contents of a file
-	@method
-	@static
-	@param {String} file, name of the file to read contents from
-	@return {String}, content of the file
-	###
+	# Return the string contents of a file
+	# @param [String] file, name of the file to read contents from
+	# @return [String], content of the file
 	@getContentsOfFile: (file) ->
 		fs.readFileSync(file, 'utf8')
 
 
-	###
-	Return the string contents of the file into one folder
-	@method
-	@static
-	@param {String} path, name of the path to read file contents from
-	@param {function} callback, return callback {Array<String>}, contents array of the files in the folder
-	###
+	# Return the string contents of the file into one folder
+	# @param [String] path, name of the path to read file contents from
+	# @param [function] callback Returns [Array<String>] contents array of the files in the folder
 	@getContentsOfFiles: (path, callback) ->
 		files = @readFilesFromDir(path)
 		_parseFile = (file, callback) ->
@@ -75,13 +53,9 @@ class ApiUtils
 		async.map(files, _parseFile, callback)
 
 
-	###
-	Return the required modules
-	@method
-	@static
-	@param {String} path, name of the path to require modules from
-	@param {function} callback, return callback, {Array<String>} required modules in an array
-	###
+	# Return the required modules
+	# @param [String] path, name of the path to require modules from
+	# @param [function] callback Returns {Array<String>} required modules in an array
 	@requireFilesFromPath: (path, callback) ->
 		_files = @readFilesFromDir(path)
 		files = []
@@ -99,13 +73,9 @@ class ApiUtils
 		async.map(files, _requireFile, callback)
 
 
-	###
-	Return the string contents of the file into one folder
-	@method
-	@static
-	@param {String} id, name of the api message to print
-	@param {String} type, type of the message
-	###
+	# Log into console the object that it's getting registered
+	# @param [String] id Name of the api message to print
+	# @param [String] type Type of the message
 	@log: (type, id) ->
 		log.log("Registered #{type}: " + "#{id}".bold)
 
