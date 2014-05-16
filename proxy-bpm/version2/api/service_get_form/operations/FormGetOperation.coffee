@@ -13,17 +13,17 @@ class FormGetOperation
 
 
 	process: -> 
-		# return ["item-id"]
+		
 		"request": -> 
-			itemId:          @find("item-id").val
-			flowId:          @find("flow-id").val  
-			requestId:       @find("request-id").val
-			creator:         @find("creator").val
-			requester:       @find("requester").val
-			requesterRole:   @find("requester-role").val
-			organizationalUnit:   @find("organizational-unit").val
-			createdByAssistant:   @find("created-by-assistant").val
-			isDraft:         @find("is-draft").val
+			itemId:             @find("item-id").val
+			flowId:             @find("flow-id").val  
+			requestId:          @find("request-id").val
+			creator:            @find("creator").val
+			requester:          @find("requester").val
+			requesterRole:      @find("requester-role").val
+			organizationalUnit: @find("organizational-unit").val
+			createdByAssistant: @find("created-by-assistant").val
+			isDraft:            @find("is-draft").val
 		
 		
 
