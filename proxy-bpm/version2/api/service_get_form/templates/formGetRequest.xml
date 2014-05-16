@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:requestGet>
+         ${requestId.toXML()}
+      </ser:requestGet>
+   </soapenv:Body>
+</soapenv:Envelope>

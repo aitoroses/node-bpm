@@ -33,7 +33,7 @@ class ApiHandlers
 					# If nodes it's an array
 					if nodes.length?
 						processedNodes = nodes.map((node) -> 
-							result = finder.findNode(node, xmldoc)
+							result = finder(node, xmldoc)
 							if result?
 								result.firstChild = result.lastChild = undefined
 							return result
@@ -70,7 +70,7 @@ class ApiHandlers
 	# Handler method to get the XML representation of the model
 	@modelXML: (req, res) ->
 		# Get the model
-		model = _getModel.call(@, req, res)
+		model = _getModel.call(@, req.query)
 		# Don't use "application/xml" content-type
 		res.end(model.toXML())
 
@@ -78,7 +78,7 @@ class ApiHandlers
 
 	# Handler method to get the XML representation of the model
 	@request: (req, res) ->
-		body = _getMessage.call(@, req, res)
+		body = _getMessage.call(@, req.query)
 		res.header({"Content-Type": "application/xml"})
 		res.end(body)
 
@@ -120,7 +120,7 @@ _getMessage = (query) ->
 	# Get the Message
 	Message = @api.getMessage(@operation.constructor.MESSAGE)
 	# Instantiate the message
-	if not message? 
+	if not Message? 
 		log.irrelevant("You must define a valid #{@operation.constructor.name}.MESSAGE Attribute")
 		return
 	message = new Message(model)

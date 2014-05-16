@@ -28,6 +28,7 @@ class ServerUtils
 			if xml.name is nodeName then return xml
 			else return iterateOverChildren(xml.children)
 		else {val: null, attr: [], name: null, children: []}
+		
 
 
 	# Get the body of the xml document

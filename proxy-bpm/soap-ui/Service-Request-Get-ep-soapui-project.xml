@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Service_Request_Get_ep" resourceRoot="" soapui-version="4.6.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Service_Request_GetBinding" type="wsdl" bindingName="{http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get}Service_Request_GetBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?WSDL"><con:part><con:url>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?WSDL</con:url><con:content><![CDATA[<wsdl:definitions name="Service_Request_Get" targetNamespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get" xmlns:ns1="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:client="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:documentation>
+    <abstractWSDL>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices!1.0/Service_Request_Get.wsdl</abstractWSDL>
+  </wsdl:documentation>
+  <plnk:partnerLinkType name="Service_Request_Get">
+    <plnk:role name="Service_Request_GetProvider" portType="ns1:Service_Request_Get"/>
+  </plnk:partnerLinkType>
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get" schemaLocation="http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?XSD=xsd/Service_Request_Get.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="Service_Request_GetRequestMessage">
+    <wsdl:part name="payload" element="ns1:requestGet"/>
+  </wsdl:message>
+  <wsdl:message name="Service_Request_GetResponseMessage">
+    <wsdl:part name="payload" element="ns1:requestGetResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="Service_Request_Get">
+    <wsdl:operation name="requestGet">
+      <wsdl:input message="ns1:Service_Request_GetRequestMessage"/>
+      <wsdl:output message="ns1:Service_Request_GetResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service_Request_GetBinding" type="ns1:Service_Request_Get">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="requestGet">
+      <soap:operation style="document" soapAction="requestGet"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service_Request_Get_ep">
+    <wsdl:port name="Service_Request_Get_pt" binding="ns1:Service_Request_GetBinding">
+      <soap:address location="http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?XSD=xsd/Service_Request_Get.xsd</con:url><con:content><![CDATA[<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:bss="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+  <import schemaLocation="http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?XSD=xsd/Request.xsd" namespace="http://xmlns.bpmsoasolutions.com/eapproval/runtime"/>
+  <element name="requestGet">
+    <complexType>
+      <sequence>
+        <element name="requestId" type="decimal"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="requestGetResponse">
+    <complexType>
+      <sequence>
+        <element name="request" type="bss:RequestType"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep?XSD=xsd/Request.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://xmlns.bpmsoasolutions.com/eapproval/runtime" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bss="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+  <xsd:element name="request" type="bss:RequestType">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="RequestType">
+    <xsd:sequence>
+      <xsd:element name="item-id" maxOccurs="1" type="xsd:decimal"/>
+      <xsd:element name="flow-id" maxOccurs="1" type="xsd:decimal"/>
+      <xsd:element name="request-id" maxOccurs="1" type="xsd:decimal" default="0"/>
+      <xsd:element name="creator" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="requester" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="requester-role" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="organizational-unit" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="created-by-assistant" type="xsd:boolean" default="false"/>
+      <xsd:element name="is-draft" type="xsd:boolean" default="false"/>
+      <xsd:element name="description" type="xsd:string" default=""/>
+      <xsd:element name="fields" type="bss:FieldsType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FieldsType">
+    <xsd:sequence>
+      <xsd:element name="field" type="bss:FieldType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FieldType">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" maxOccurs="1"/>
+      <xsd:element name="value" type="xsd:string"/>
+      <xsd:element name="is-parameter" type="xsd:boolean" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RequestExcelExportType">
+    <xsd:sequence>
+      <xsd:element name="requestId" maxOccurs="1" type="xsd:decimal" default="0"/>
+      <xsd:element name="itemId" maxOccurs="1" type="xsd:decimal"/>
+      <xsd:element name="itemName" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="flowId" maxOccurs="1" type="xsd:decimal"/>
+      <xsd:element name="flowName" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="creator" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="requester" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="requester-role" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="requestDateCreation" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+      <xsd:element name="requestDateSubmit" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+      <xsd:element name="organizational-unit" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="createdByAssistant" type="xsd:boolean" default="false"/>
+      <xsd:element name="isDraft" type="xsd:boolean" default="false"/>
+      <xsd:element name="status" maxOccurs="1" type="xsd:string"/>
+      <xsd:element name="description" type="xsd:string" default=""/>
+      <xsd:element name="approvalDate" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+      <xsd:element name="deleteDate" minOccurs="0" maxOccurs="1" type="xsd:dateTime"/>
+      <xsd:element name="fields" type="bss:FieldsType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://iMac-de-Anet.local:8088/mockService_Request_GetBinding</con:endpoint><con:endpoint>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep</con:endpoint></con:endpoints><con:operation isOneWay="false" action="requestGet" name="requestGet" bindingOperationName="requestGet" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices/Service_Request_Get_ep</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:requestGet>
+         <ser:requestId>16152</ser:requestId>
+      </ser:requestGet>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="requestGet"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService port="8088" path="/mockService_Request_GetBinding" host="iMac-de-Anet.local" name="Service_Request_GetBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation name="requestGet" interface="Service_Request_GetBinding" operation="requestGet"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Response 1</con:defaultResponse><con:response name="Response 1" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsa="http://www.w3.org/2005/08/addressing">
+   <env:Header>
+      <wsa:MessageID>urn:113AE450DCF411E3BFE1D77B24C8B95C</wsa:MessageID>
+      <wsa:ReplyTo>
+         <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+      </wsa:ReplyTo>
+      <wsa:FaultTo>
+         <wsa:Address>http://www.w3.org/2005/08/addressing/anonymous</wsa:Address>
+      </wsa:FaultTo>
+   </env:Header>
+   <env:Body>
+      <requestGetResponse xmlns="http://xmlns.oracle.com/eApp/eAppServices/Service_Request_Get">
+         <request>
+            <item-id xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">605</item-id>
+            <flow-id xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">30005</flow-id>
+            <request-id xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">16152</request-id>
+            <creator xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">comdirector15</creator>
+            <requester xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">comdirector15</requester>
+            <requester-role xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">eAppKernel.Requester</requester-role>
+            <organizational-unit xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">AUSTRIA_PH</organizational-unit>
+            <created-by-assistant xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">0</created-by-assistant>
+            <is-draft xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">0</is-draft>
+            <description xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">123123</description>
+            <fields xmlns="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>requestTitle</ns3:name>
+                  <ns3:value>My first request</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>startDate</ns3:name>
+                  <ns3:value>04/02/2014</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>endDate</ns3:name>
+                  <ns3:value>04/03/2014</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>value</ns3:name>
+                  <ns3:value>1233</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>itemDescriptionText</ns3:name>
+                  <ns3:value>123123</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>externalReferences</ns3:name>
+                  <ns3:value>asdfasdf</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>coveredByBudget</ns3:name>
+                  <ns3:value>false</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>usage</ns3:name>
+                  <ns3:value>12313</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>requestIdentifier</ns3:name>
+                  <ns3:value>Non-promotional material (not related to brand names)</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>productText</ns3:name>
+                  <ns3:value>123123</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>creatorName</ns3:name>
+                  <ns3:value>comdirector15</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>requesterName</ns3:name>
+                  <ns3:value>comdirector15</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>targetBUorArea</ns3:name>
+                  <ns3:value>7003</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>valueCurrency</ns3:name>
+                  <ns3:value>Local Currency</ns3:value>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+               <ns3:field xmlns:ns3="http://xmlns.bpmsoasolutions.com/eapproval/runtime">
+                  <ns3:name>approvalNP4Number</ns3:name>
+                  <ns3:value/>
+                  <ns3:is-parameter>true</ns3:is-parameter>
+               </ns3:field>
+            </fields>
+         </request>
+      </requestGetResponse>
+   </env:Body>
+</env:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="requestGet"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties/><con:wssContainer/></con:soapui-project>
