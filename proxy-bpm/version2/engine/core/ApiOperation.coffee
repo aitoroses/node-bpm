@@ -1,15 +1,14 @@
-# Operation for sending authentication
-class AuthenticateOperation
+# Basic Operation
+class ApiOperation
 
 	# @property [String]
-	@MESSAGE: "AuthenticationRequestMessage"
+	@MESSAGE: "DefaultRequestMessage"
 
 
 	# Generate the model for the message
 	# @return [Object], Generated model
 	model: ->
-		Credential = @api.getType("Credential")
-		new Credential(@query.login, @query.password)
+		"Please override the Operation.model() method."
 
 
 
@@ -32,15 +31,7 @@ class AuthenticateOperation
 	#   
 	#   process: -> ["faultcode", "message"]
 	process: -> 
-		"com:workflowContext": -> 
-			credential: 
-				login: @find("com:login").val
-				password: @find("com:password").val
-			token: @find("com:token").val
-			locale: @find("com:locale").val
-			timezone: @find("com:timeZone").val
+		"Please override the Operation.process() method."
 
 	
-	
-
-module.exports = AuthenticateOperation
+module.exports = ApiOperation

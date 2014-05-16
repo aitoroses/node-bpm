@@ -1,6 +1,7 @@
 utils = require "../utils/ApiUtils"
 log   = require "../utils/ApiLogger"
 _     = require "lodash"
+ApiOperation = require "../core/ApiOperation"
 
 
 # Class for loading API's and their messages, operations, types...
@@ -107,6 +108,10 @@ class ApiManager
 			if operation.id == operationName
 				content = operation.content
 				content.prototype.api = @
+				# Fill operation methods
+				if not content.MESSAGE? then content.MESSAGE = ApiOperation.MESSAGE
+				if not content.prototype.model? then content.prototype.model = ApiOperation.prototype.model
+				if not content.prototype.process? then content.prototype.process = ApiOperation.prototype.process
 				return content
 		return undefined
 

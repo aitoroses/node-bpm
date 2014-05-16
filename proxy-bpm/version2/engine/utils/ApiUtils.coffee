@@ -62,14 +62,14 @@ class ApiUtils
 		split = null
 		for file in _files
 			split = file.split(".coffee")
-			if(split[1]?) then files.push(split[0])
-		_requireFile = (file, callback) ->
 			if split[1]?
-				loadedModule = require('../../' + path + '/' + split[0])
-				callback(null, {
-					id: split[0],
-					content: loadedModule
-				})
+				files.push(split[0])
+		_requireFile = (file, callback) ->
+			loadedModule = require('../../' + path + '/' + file)			
+			callback(null, {
+				id: file,
+				content: loadedModule
+			})
 		async.map(files, _requireFile, callback)
 
 
