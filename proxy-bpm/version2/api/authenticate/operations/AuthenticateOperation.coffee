@@ -34,7 +34,7 @@ class AuthenticateOperation
 	process: -> 
 		"com:workflowContext": -> 
 			credential: 
-				login: @find("com:login").val
+				login: @find("com:login1").val
 				password: @find("com:password").val
 			token: @find("com:token").val
 			locale: @find("com:locale").val

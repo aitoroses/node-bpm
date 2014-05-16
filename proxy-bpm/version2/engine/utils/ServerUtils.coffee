@@ -23,9 +23,11 @@ class ServerUtils
 					parents.push(child)
 			for parent in parents
 				return iterateOverChildren(parent.children)
-			return undefined
-		if xml.name is nodeName then return xml
-		else return iterateOverChildren(xml.children)
+			return {val: null, attr: [], name: null, children: []}
+		if xml?
+			if xml.name is nodeName then return xml
+			else return iterateOverChildren(xml.children)
+		else {val: null, attr: [], name: null, children: []}
 
 
 	# Get the body of the xml document
