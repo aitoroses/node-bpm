@@ -5,10 +5,6 @@ class AuthenticateOperation
 	# @property [String]
 	@MESSAGE: "AuthenticationRequestMessage"
 
-	# Construct new Operation
-	# @param [Credential] credential, Credentials of the user
-	constructor: (@credential) ->
-
 
 	# Generate the model for the message
 	# @return [Object], Generated model
@@ -20,7 +16,7 @@ class AuthenticateOperation
 
 	# Return some nodes on the response
 	# @return [Array<String>] Array of node names to be processed
-
+	#
 	# @example Returning an object or an array
 	#   process: -> 
 	# 	  "com:workflowContext": -> 

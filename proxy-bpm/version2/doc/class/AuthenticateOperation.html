@@ -67,43 +67,15 @@
     <span class='signature'>
       <a href='#process-dynamic'>
         #
-(void)
+(Array&lt;String&gt;)
 <b>process</b><span>()</span>
       </a>
     </span>
     <span class='desc'>
+      Return some nodes on the response 
     </span>
   </li>
 </ul>
-      <h2>Constructor Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='constructor-dynamic'>
-      #
-(void)
-<b>constructor</b><span>(credential)</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <p>Construct new Operation</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>credential,</span>
-      <span class='type'>
-        (
-          <tt><a href='../class/Credential.html'>Credential</a></tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>Credentials of the user </span>
-    </li>
-  </ul>
-</div>
-  </div>
-</div>
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
@@ -129,12 +101,12 @@
   <div class='method_details'>
     <p class='signature' id='process-dynamic'>
       #
-(void)
+(Array&lt;String&gt;)
 <b>process</b><span>()</span>
       <br>
     </p>
     <div class='docstring'>
-  
+  <p>Return some nodes on the response</p>
   <div class='examples'>
     <h3>Examples:</h3>
     <h4>
@@ -157,12 +129,23 @@ process: -&gt; [&quot;faultcode&quot;, &quot;message&quot;]</code></pre>
   </div>
 </div>
 <div class='tags'>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>Array&lt;String&gt;</tt>
+      )
+      &mdash;
+      <span class='desc'>Array of node names to be processed </span>
+    </li>
+  </ul>
 </div>
   </div>
 </div>
     </div>
     <div id='footer'>
-  May 16, 14 12:38:33 by
+  May 16, 14 12:41:56 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
