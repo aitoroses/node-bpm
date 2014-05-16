@@ -1,4 +1,5 @@
 ServerUtils   = require "../utils/ServerUtils"
+log   = require "../utils/ApiLogger"
 finder = ServerUtils.findNode
 
 
@@ -28,29 +29,32 @@ class ApiHandlers
 				xmldoc = ServerUtils.getBody(body)
 				nodes = @operation.process.call(body)
 
-				# If nodes it's an array
-				if nodes.length?
-					processedNodes = nodes.map((node) -> 
-						result = finder.findNode(node, xmldoc)
-						if result?
-							result.firstChild = result.lastChild = undefined
-						return result
-					)
-				else
-					processedNodes = {}
-					for node,fn of nodes
-						
-						finded = finder(node, xmldoc)
-						finderFn = (node) -> finder(node, finded)
+				if typeof nodes is "object" # array of an object
+					# If nodes it's an array
+					if nodes.length?
+						processedNodes = nodes.map((node) -> 
+							result = finder.findNode(node, xmldoc)
+							if result?
+								result.firstChild = result.lastChild = undefined
+							return result
+						)
+					else
+						# If nodes it's a hash
+						processedNodes = {}
+						for node,fn of nodes
+							
+							finded = finder(node, xmldoc)
+							finderFn = (node) -> finder(node, finded)
 
-						key = node.split(":")
-						key = if key.length == 2 then key[1] else key[0]
-						result = fn.call({find: finderFn, node: finded})
-						if result?
-							result.firstChild = result.lastChild = undefined
-						processedNodes[key] = result
+							key = node.split(":")
+							key = if key.length == 2 then key[1] else key[0]
+							result = fn.call({find: finderFn, node: finded})
+							if result?
+								result.firstChild = result.lastChild = undefined
+							processedNodes[key] = result
 
-				res.json(processedNodes)
+					res.json(processedNodes)
+				else res.json({error: nodes})
 		)
 
 
@@ -116,6 +120,9 @@ _getMessage = (query) ->
 	# Get the Message
 	Message = @api.getMessage(@operation.constructor.MESSAGE)
 	# Instantiate the message
+	if not message? 
+		log.irrelevant("You must define a valid #{@operation.constructor.name}.MESSAGE Attribute")
+		return
 	message = new Message(model)
 	message.toXML()
 

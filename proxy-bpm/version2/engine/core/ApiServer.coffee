@@ -63,7 +63,7 @@ _handlers = (api, operation) ->
 	base = "/#{api.getName()}/#{operation.id}"
 	log.log("GET #{base}")
 	if (api.config.debug) then log.irrelevant("#{@serverURL}#{api.config.uri}")
-
+	
 	op = new operation.content()
 
 	handlerObjects = [

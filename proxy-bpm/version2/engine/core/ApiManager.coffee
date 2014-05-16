@@ -108,10 +108,6 @@ class ApiManager
 			if operation.id == operationName
 				content = operation.content
 				content.prototype.api = @
-				# Fill operation methods
-				if not content.MESSAGE? then content.MESSAGE = ApiOperation.MESSAGE
-				if not content.prototype.model? then content.prototype.model = ApiOperation.prototype.model
-				if not content.prototype.process? then content.prototype.process = ApiOperation.prototype.process
 				return content
 		return undefined
 
@@ -155,6 +151,15 @@ class ApiManager
 		_this = @
 		utils.requireFilesFromPath "#{ApiManager.API_DIR}/#{@name}/#{ApiManager.OPERATIONS_DIR}", (err, results) ->
 			_this._operations = results
+			# Fill operation methods
+			_this._operations.map (operation)->
+				# If operation it's not completed
+				completed = true;
+				content = operation.content
+				if not content.MESSAGE? then content.MESSAGE = ApiOperation.MESSAGE; completed = false
+				if not content.prototype.model? then content.prototype.model = ApiOperation.prototype.model; completed = false
+				if not content.prototype.process? then content.prototype.process = ApiOperation.prototype.process; completed = false
+				if completed is false then log.irrelevant("Care the specification of the operation #{operation.id} it's not complete")
 			for each in results
 				utils.log("operation",each.id.cyan)
 

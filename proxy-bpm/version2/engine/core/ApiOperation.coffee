@@ -8,7 +8,8 @@ class ApiOperation
 	# Generate the model for the message
 	# @return [Object], Generated model
 	model: ->
-		"Please override the Operation.model() method."
+		error: "Please override the Operation.model() method."
+		toXML: (-> @message)
 
 
 
