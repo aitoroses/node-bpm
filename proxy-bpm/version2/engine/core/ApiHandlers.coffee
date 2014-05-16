@@ -1,0 +1,175 @@
+ServerUtils   = require "../utils/ServerUtils"
+finder = ServerUtils.findNode
+
+###
+Class that provides handlers to the ApiServer API register
+@static
+@class
+The context for each function should always be the same
+@option {ApiManager} this.api, a reference to the api object
+@option {Object} this.operation, the instance of the operation
+###
+class ApiHandlers
+
+	###
+	The detault handler for the operation
+	It processes the message returned from the BPM engine and gives the result
+	The process function should be the member of the operation and can return an object or an array
+	@static
+	@method
+	###
+	@default: (req, res) ->
+		# Define first the context
+		_request.call({
+			api: @api
+			message: => _getMessage.call(@, req, res)
+		
+		}, (err, response, body) =>
+				
+			if err
+				return res.json(err)
+			else
+				xmldoc = ServerUtils.getBody(body)
+				nodes = @operation.process.call(body)
+
+				# If nodes it's an array
+				if nodes.length?
+					processedNodes = nodes.map((node) -> 
+						result = finder.findNode(node, xmldoc)
+						if result?
+							result.firstChild = result.lastChild = undefined
+						return result
+					)
+				else
+					processedNodes = {}
+					for node,fn of nodes
+						
+						finded = finder(node, xmldoc)
+						finderFn = (node) -> finder(node, finded)
+
+						key = node.split(":")
+						key = if key.length == 2 then key[1] else key[0]
+						result = fn.call({find: finderFn, node: finded})
+						if result?
+							result.firstChild = result.lastChild = undefined
+						processedNodes[key] = result
+
+				res.json(processedNodes)
+		)
+
+
+
+
+	###
+	Handler method returns the model constructed by the operation with the params
+	@static
+	@method
+	###
+	@model: (req, res) ->
+		res.json _getModel.call(@, req.query)
+
+
+
+
+	###
+	Handler method to get the XML representation of the model
+	@static
+	@method
+	###
+	@modelXML: (req, res) ->
+		# Get the model
+		model = _getModel.call(@, req, res)
+		# Don't use "application/xml" content-type
+		res.end(model.toXML())
+
+
+
+
+	###
+	Handler method to get the XML representation of the model
+	@static
+	@method
+	###
+	@request: (req, res) ->
+		body = _getMessage.call(@, req, res)
+		res.header({"Content-Type": "application/xml"})
+		res.end(body)
+
+
+
+
+	###
+	Handler method that returns the exact message given by the BPM engine
+	@static
+	@method
+	###
+	@response: (req, res) ->
+		# Define first the context
+		_request.call({
+			api: @api
+			message: => _getMessage.call(@, req, res)
+		
+		}, (err, response, body) =>
+			if err
+				return res.json(err)
+			else
+				JSONResponse = @operation.process.call(body)
+				res.header({"Content-Type": "application/xml"})
+				res.end(body)
+		)
+
+
+
+###
+Use the operations model() method to construct the model object
+@param {Object} query, the query object to retrieve from the URL
+@return {Object}, the model object of the operation
+###
+_getModel = (query) ->
+	data = @operation.model.call({api: @api, query: query});
+
+
+
+
+
+###
+Model process to get the XML representation of the model
+@param {Object} query, the query object to retrieve from the URL
+@return {String}, the XML chunk of the message that is gonna be sended to the BPM engine
+###
+_getMessage = (query) ->
+	model = _getModel.call(@, query)
+	modelXML = model.toXML();
+	# Get the Message
+	Message = @api.getMessage(@operation.constructor.MESSAGE)
+	# Instantiate the message
+	message = new Message(model)
+	message.toXML()
+
+
+###
+It's a helper method used by the handler of a operations
+Checks for the existance of config prop in the api and if it has a message method
+Sends to the BPM server the operations message
+@param {Function} callback, the callback function that holds the result.
+@option {Object} err, error returned by the response
+@option {Object} response, response object of the request
+@option {Object} body, the body of the response, usually the message
+###
+_request = (callback) ->
+
+	# Has it's configuration have uri?
+	if not @api.config.uri? then throw Error("No uri attribute was defined in config.")
+	_uri = @api._server.serverURL + @api.config.uri
+
+	# Is there a message() method?
+	if not @message? then throw Error("No message function was defined.")
+	_message = @message()
+
+	# Make the request and process it
+	ServerUtils.makeSoapRequest(_uri, _message, callback)
+
+
+
+
+module.exports = ApiHandlers

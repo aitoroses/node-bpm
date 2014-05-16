@@ -4,13 +4,14 @@ _     = require "lodash"
 
 
 ###
-# Class for loading API's and their messages, operations, types...
-#
+Class for loading API's and their messages, operations, types...
+@class
 ###
 class ApiManager
 
-	# Path names
-	#
+	###
+	@static Path names
+	###
 	@API_DIR: "api"
 	@CONFIG_PATH: "config"
 	@TEMPLATE_DIR: "templates"
@@ -19,27 +20,32 @@ class ApiManager
 	@OPERATIONS_DIR: "operations"
 
 
-	# - {Array<Object>[:id, :content]}
-	#
+	###
+	{Array<Object>[:id, :content]}
+	###
 	_templates:  []
 
-	# - {Array<Object>[:id, :content]}
-	#
+	
+	###
+	{Array<Object>[:id, :content]}
+	###
 	_types:      []
-	# - {Array<Object>[:id, :content]}
-	#
+	
+	###
+	{Array<Object>[:id, :content]}
+	###
 	_messages:   []
-
-	# - {Array<Object>[:id, :content]}
-	#
+	
+	###
+	{Array<Object>[:id, :content]}
+	###
 	_operations: []
 
 
 	###
-	# Construct a new named api and load its dependencies
-	# 
-	# @param {String} name, name of the api folder
-	#
+	Construct a new named api and load its dependencies
+	@constructor
+	@param {String} name, name of the api folder
 	###
 	constructor: (@name) ->
 		if not @name?
@@ -59,21 +65,17 @@ class ApiManager
 
 	###
 	# Get the name of the API
-	#
 	# @return {String}
-	#
 	###
 	getName: (templateName) ->
 		return @name
 
 
 	###
-	# Get a template for rendering contents
-	# 
-	# @param {String} templateName, name of the api folder
-	#
-	# @return {Object}, return a lodash template
-	#
+	Get a template for rendering contents
+	@method
+	@param {String} templateName, name of the api folder
+	@return {Object}, return a lodash template
 	###
 	getTemplate: (templateName) ->
 		if not templateName?
@@ -84,12 +86,10 @@ class ApiManager
 	
 
 	###
-	# Get a type that operates with a template for rendering contents
-	# 
-	# @param {String} typeName, name of the api folder
-	#
-	# @return {Object}, return a type mapped to a template
-	#
+	Get a type that operates with a template for rendering contents
+	@method
+	@param {String} typeName, name of the api folder
+	@return {Object}, return a type mapped to a template
 	###
 	getType: (typeName) ->
 		_this = @
@@ -104,12 +104,10 @@ class ApiManager
 		return undefined
 
 	###
-	# Get a soap message for sending to the BPM server
-	# 
-	# @param {String} messageName, name of the api folder
-	#
-	# @return {Object}, return a message type
-	#
+	Get a soap message for sending to the BPM server
+	@method
+	@param {String} messageName, name of the api folder
+	@return {Object}, return a message type
 	###
 	getMessage: (messageName) ->
 		_this = @
@@ -126,12 +124,10 @@ class ApiManager
 
 
 	###
-	# Get a operation to execute it
-	# 
-	# @param {String} messageName, name of the api folder
-	#
-	# @return {Object}, return a message type
-	#
+	Get a operation to execute it
+	@method
+	@param {String} messageName, name of the api folder
+	@return {Object}, return a message type
 	###
 	getOperation: (operationName) ->
 		if not operationName?
@@ -145,8 +141,8 @@ class ApiManager
 
 
 	###
-	# Inner function for initialize api templates in the constructor
-	#
+	Inner function for initialize api templates in the constructor
+	@method
 	###
 	_parseTemplates: ->
 		_this = @
@@ -157,8 +153,8 @@ class ApiManager
 
 
 	###
-	# Inner function for initialize api templates in the constructor
-	#
+	Inner function for initialize api templates in the constructor
+	@method
 	###
 	_parseTypes: ->
 		_this = @
@@ -172,8 +168,8 @@ class ApiManager
 
 
 	###
-	# Inner function for initialize api messages in the constructor
-	#
+	Inner function for initialize api messages in the constructor
+	@method
 	###
 	_parseMessages: ->
 		_this = @
@@ -184,8 +180,8 @@ class ApiManager
 
 
 	###
-	# Inner function for initialize operations in the constructor
-	#
+	Inner function for initialize operations in the constructor
+	@method
 	###
 	_parseOperations: ->
 		_this = @

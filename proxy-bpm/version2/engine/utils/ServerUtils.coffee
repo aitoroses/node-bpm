@@ -5,23 +5,20 @@ request  = require('request')
 
 
 ###
-# Class with useful static methods for manipulating request conversions
-# and sending requests to the BPM engine
-#
+Class with useful static methods for manipulating request conversions
+and sending requests to the BPM engine
+@class
 ###
 class ServerUtils
 
 
 	###
-	# Get a template for rendering contents
-	# 
-	# @method static
-	#
-	# @param {String} nodeName, node that we want to find
-	# @param {XMLDoc} xml, xmldoc converted message
-	#
-	# @return {XMLDoc}, return the node that we searched
-	#
+	Get a template for rendering contents
+	@method 
+	@static
+	@param {String} nodeName, node that we want to find
+	@param {XMLDoc} xml, xmldoc converted message
+	@return {XMLDoc}, return the node that we searched
 	###
 	@findNode: (nodeName, xml) ->
 		iterateOverChildren = (children)->
@@ -39,12 +36,11 @@ class ServerUtils
 
 
 	###
-	# Get the body of the xml document
-	#
-	# @param {String} xml, XML pure string to be converted
-	#
-	# @return {XMLDoc}, xmldoc converted message
-	#
+	Get the body of the xml document
+	@method 
+	@static
+	@param {String} xml, XML pure string to be converted
+	@return {XMLDoc}, xmldoc converted message
 	###			
 	@getBody: (xml) ->
 		document = new xmldoc.XmlDocument(xml);
@@ -52,14 +48,13 @@ class ServerUtils
 
 
 	###
-	# Send a message to the BPM engine
-	#
-	# @param {uri} uri, XML pure string to be converted
-	# @param {String} message, XML pure string to be converted
-	# @param {Function} callback, XML pure string to be converted
-	#
-	# @return {XMLDoc}, xmldoc converted message
-	#
+	Send a message to the BPM engine
+	@method 
+	@static
+	@param {uri} uri, XML pure string to be converted
+	@param {String} message, XML pure string to be converted
+	@param {Function} callback, XML pure string to be converted
+	@return {XMLDoc}, xmldoc converted message
 	###		
 	@makeSoapRequest: (uri, message, callback) ->
 		request(

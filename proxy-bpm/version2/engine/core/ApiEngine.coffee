@@ -3,8 +3,10 @@ utils = require "../utils/ApiUtils"
 log   = require "../utils/ApiLogger"
 
 
-# API Engine Class
-#
+###
+API Engine Class
+@class
+###
 class ApiEngine
 	
 	# Path names
@@ -16,11 +18,14 @@ class ApiEngine
 	_apis: {}
 
 	###
-	# Construct a new ApiEngine
-	# 
+	Construct a new ApiEngine
+	@constructor
 	###
 	constructor: ->
-
+		
+		###
+		Inner method to retrieve the API's
+		###
 		_initApi = (apiName, callback) =>
 			# If the path it's a directory then it's an API
 			if utils.isDirectory(ApiEngine.API_DIR + "/" + apiName)
@@ -33,22 +38,19 @@ class ApiEngine
 		utils.forEachFileInDir(ApiEngine.API_DIR, _initApi, null)
 
 	###
-	# Retrieve an API
-	# 
-	# @param {String} apiName, name of the API
-	#
-	# @return {ApiManager}, returns a named API
-	#
+	Retrieve an API by it's name
+	@method
+	@param {String} apiName, name of the API
+	@return {ApiManager}, returns a named API
 	###
 	getAPI: (apiName) ->
 		@_apis[apiName]
 
 
 	###
-	# Get all the API's
-	#
-	# @return {Array<ApiManager>}, Array of API's
-	#
+	Retrieve all the API's
+	@method
+	@return {Array<ApiManager>}, Array of API's
 	###
 	getAllAPI: () ->
 		return @_apis
