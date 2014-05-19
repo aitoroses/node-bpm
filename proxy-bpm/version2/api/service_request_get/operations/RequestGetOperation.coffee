@@ -29,9 +29,7 @@ class RequestGetOperation
 					name: field.children[0].val
 					value: field.children[1].val
 				}
-				return field
 			)(field) for field in @find("fields").children
-
 		
 		
 
