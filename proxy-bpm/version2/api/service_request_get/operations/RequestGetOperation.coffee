@@ -1,8 +1,8 @@
 # Basic Operation
-class FormGetOperation
+class RequestGetOperation
 
 	# @property [String]
-	@MESSAGE: "FormGetRequestMessage"
+	@MESSAGE: "RequestGetMessage"
 
 
 	# Generate the model for the message
@@ -24,7 +24,15 @@ class FormGetOperation
 			organizationalUnit: @find("organizational-unit").val
 			createdByAssistant: @find("created-by-assistant").val
 			isDraft:            @find("is-draft").val
+			fields: ((field) -> 
+				return {
+					name: field.children[0].val
+					value: field.children[1].val
+				}
+				return field
+			)(field) for field in @find("fields").children
+
 		
 		
 
-module.exports = FormGetOperation
+module.exports = RequestGetOperation
