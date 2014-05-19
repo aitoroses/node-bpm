@@ -4,12 +4,14 @@ class AuthenticateOperation
 	# @property [String]
 	@MESSAGE: "AuthenticationRequestMessage"
 
+	# @property [String]
+	#@METHOD: "POST"
 
 	# Generate the model for the message
 	# @return [Object], Generated model
 	model: ->
 		Credential = @api.getType("Credential")
-		new Credential(@query.login, @query.password)
+		new Credential(@args.login, @args.password)
 
 
 
@@ -32,13 +34,13 @@ class AuthenticateOperation
 	#   
 	#   process: -> ["faultcode", "message"]
 	process: -> 
-		"com:workflowContext": -> 
+		"workflowContext": -> 
 			credential: 
-				login: @find("com:login1").val
-				password: @find("com:password").val
-			token: @find("com:token").val
-			locale: @find("com:locale").val
-			timezone: @find("com:timeZone").val
+				login: @find("login").val
+				identityContext: @find("identityContext").val
+			token: @find("token").val
+			locale: @find("locale").val
+			timezone: @find("timeZone").val
 
 	
 	

@@ -9,7 +9,7 @@ class FormGetOperation
 	# @return [Object], Generated model
 	model: ->
 		RequestId = @api.getType("RequestId")
-		new RequestId(@query.requestId)
+		new RequestId(@args.requestId)
 
 
 	process: -> 

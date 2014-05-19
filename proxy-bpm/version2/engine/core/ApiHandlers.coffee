@@ -19,7 +19,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req, res)
+			message: => _getMessage.call(@, req.args)
 		
 		}, (err, response, body) =>
 				
@@ -62,7 +62,7 @@ class ApiHandlers
 
 	# Handler method returns the model constructed by the operation with the params
 	@model: (req, res) ->
-		res.json _getModel.call(@, req.query)
+		res.json _getModel.call(@, req.args)
 
 
 
@@ -70,7 +70,7 @@ class ApiHandlers
 	# Handler method to get the XML representation of the model
 	@modelXML: (req, res) ->
 		# Get the model
-		model = _getModel.call(@, req.query)
+		model = _getModel.call(@, req.args)
 		# Don't use "application/xml" content-type
 		res.end(model.toXML())
 
@@ -78,8 +78,8 @@ class ApiHandlers
 
 	# Handler method to get the XML representation of the model
 	@request: (req, res) ->
-		body = _getMessage.call(@, req.query)
-		res.header({"Content-Type": "application/xml"})
+		body = _getMessage.call(@, req.args)
+		res.header({"Content-Type": "text/xml"})
 		res.end(body)
 
 
@@ -88,34 +88,34 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req, res)
+			message: => _getMessage.call(@, req.args)
 		
 		}, (err, response, body) =>
 			if err
 				return res.json(err)
 			else
 				JSONResponse = @operation.process.call(body)
-				res.header({"Content-Type": "application/xml"})
+				res.header({"Content-Type": "text/xml"})
 				res.end(body)
 		)
 
 
 
 # Use the operations model() method to construct the model object
-# @param [Object] query the query object to retrieve from the URL
+# @param [Object] args the args object to retrieve from the URL
 # @return [Object] the model object of the operation
-_getModel = (query) ->
-	data = @operation.model.call({api: @api, query: query});
+_getModel = (args) ->
+	data = @operation.model.call({api: @api, args: args});
 
 
 
 
 
 # Model process to get the XML representation of the model
-# @param [Object] query, the query object to retrieve from the URL
+# @param [Object] args, the args object to retrieve from the URL
 # @return [String], the XML chunk of the message that is gonna be sended to the BPM engine
-_getMessage = (query) ->
-	model = _getModel.call(@, query)
+_getMessage = (args) ->
+	model = _getModel.call(@, args)
 	modelXML = model.toXML();
 	# Get the Message
 	Message = @api.getMessage(@operation.constructor.MESSAGE)

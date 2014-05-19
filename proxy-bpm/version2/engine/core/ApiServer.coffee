@@ -4,6 +4,10 @@ log           = require "../utils/ApiLogger"
 express       = require "Express"
 ApiHandlers   = require "../core/ApiHandlers"
 
+# Middleware
+corsMiddleware = require "../middleware/cors"
+requestArgumentsMixer = require "../middleware/requestArgumentsMixer"
+
 
 # ApiServer class creates a server
 class ApiServer
@@ -19,6 +23,11 @@ class ApiServer
 		@http = express()
 		@http.configure =>
 			@http.use express.logger('dev')
+			@http.use express.cookieParser('my secret here')
+			@http.use express.json()
+			@http.use express.static(__dirname + '/app')
+			@http.use corsMiddleware
+			@http.use requestArgumentsMixer
 
 		@_engine = new ApiEngine();
 		log.cut()
@@ -61,10 +70,17 @@ class ApiServer
 _handlers = (api, operation) ->
 
 	base = "/#{api.getName()}/#{operation.id}"
-	log.log("GET #{base}")
-	if (api.config.debug) then log.irrelevant("#{@serverURL}#{api.config.uri}")
 	
 	op = new operation.content()
+	
+	# METHOD
+	if op.constructor.METHOD? and typeof op.constructor.METHOD is "string"
+		_method = op.constructor.METHOD
+	else _method = "GET"
+	_method = _method.toLowerCase()
+
+	log.log("#{_method.toUpperCase()} #{base}")
+	if (api.config.debug) then log.irrelevant("#{@serverURL}#{api.config.uri}")
 
 	handlerObjects = [
 
@@ -100,7 +116,7 @@ _handlers = (api, operation) ->
 				log.irrelevant "Debug GET #{base + _url}"
 				@http.get(base + _url, _handler)
 		else
-			@http.get(base + _url, _handler)
+			@http[_method](base + _url, _handler)
 
 
 	).bind(@)
