@@ -1,0 +1,9 @@
+<workflowContext xmlns="http://xmlns.oracle.com/bpel/workflow/common">
+	<% if (typeof(credential.login) != "undefined") { %>
+		${credential.toXML()}
+	<% } %>
+	<% if (typeof(token) != "undefined") { %>
+    	<com:token>${token}</com:token>
+	<% } %>
+    
+</workflowContext>

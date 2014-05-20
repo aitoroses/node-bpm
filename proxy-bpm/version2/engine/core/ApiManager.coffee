@@ -130,8 +130,8 @@ class ApiManager
 			_this._types = results
 			for each in _this._types
 				# Add toXML method to the returned type
-				each.content.prototype.toXML = -> 
-					_this.getTemplate(each.content.TEMPLATE)(this)
+				each.content.prototype.toXML = ->
+					_this.getTemplate(this.constructor.TEMPLATE)(this)
 				utils.log("type",each.id.magenta)
 
 
