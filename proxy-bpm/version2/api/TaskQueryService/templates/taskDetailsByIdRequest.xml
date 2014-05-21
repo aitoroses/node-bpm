@@ -1,0 +1,4 @@
+<tas:taskDetailsByIdRequest>
+    ${workflowContext.toXML()}
+    <tas:taskId>${taskId}</tas:taskId>
+</tas:taskDetailsByIdRequest>

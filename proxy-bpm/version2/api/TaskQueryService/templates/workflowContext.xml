@@ -5,5 +5,4 @@
 	<% if (typeof(token) != "undefined") { %>
     	<com:token>${token}</com:token>
 	<% } %>
-    
 </workflowContext>

@@ -1,7 +1,7 @@
-class GetTasksOperation
+class GetTaskDetailsByIdOperation
 
 	# @property [String]
-	@MESSAGE: "GetTasksMessage"
+	@MESSAGE: "GetTaskDetailsByIdMessage"
 
 	# @property [String]
 	#@METHOD: "POST"
@@ -11,12 +11,16 @@ class GetTasksOperation
 	model: ->
 		WorkflowContext = @api.getType("WorkflowContext")
 		Credential = @api.getType("Credential")
+		TaskDetailsByIdRequest = @api.getType("TaskDetailsByIdRequest")
+
 		credential = if @args.login? then new Credential(@args.login, @args.password) else new Credential
-		new WorkflowContext(@args.token, credential)
+		workflow = new WorkflowContext(@args.token, credential)
+		
+		new TaskDetailsByIdRequest workflow, @args.taskId
 
 
-	# Transform the request
+	# Return some nodes on the response
 	process: -> true
 
 
-module.exports = GetTasksOperation
+module.exports = GetTaskDetailsByIdOperation

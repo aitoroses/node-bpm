@@ -28,8 +28,26 @@ class ServerUtils
 			if xml.name is nodeName then return xml
 			else return iterateOverChildren(xml.children)
 		else {val: null, attr: [], name: null, children: []}
-		
+	
 
+	# Transform a node's content to it's resultant JSON
+	# @param [String] nodeName node that we want to find
+	# @return [Object] Resulting JSON object
+	@transformNode = (node) ->
+		iterate = (node, step) ->
+			# If this node has not children iteration has finished
+			if node.children.length is 0 
+				step[node.name] = node.val
+				return step
+			else
+				# We have some childs at this point
+				result = {}
+				node.children.map((child) -> iterate(child, result))
+				step[node.name] = result
+				return step	
+		result = iterate(node, newStep = {})
+		if result[node.name] is "" then return {error: "Empty response."}
+		else return result
 
 	# Get the body of the xml document
 	# @param [String] xml XML pure string to be converted

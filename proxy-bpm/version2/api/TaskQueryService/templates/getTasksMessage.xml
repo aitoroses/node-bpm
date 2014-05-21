@@ -5,7 +5,8 @@
          ${workflowContext.toXML()}
          <tas1:taskPredicateQuery>
             <tas1:predicate>
-               <tas1:assignmentFilter>All</tas1:assignmentFilter>
+               <!-- <tas1:assignmentFilter>All</tas1:assignmentFilter> -->
+               <tas1:assignmentFilter>My</tas1:assignmentFilter>
                <tas1:clause>
                      <tas1:column tableName="WFTask">
                         <tas1:columnName>state</tas1:columnName>

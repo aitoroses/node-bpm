@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tas="http://xmlns.oracle.com/bpel/workflow/taskQueryService" xmlns:com="http://xmlns.oracle.com/bpel/workflow/common">
+   <soapenv:Header/>
+   <soapenv:Body>
+        ${taskDetailsByIdRequest.toXML()}
+   </soapenv:Body>
+</soapenv:Envelope>

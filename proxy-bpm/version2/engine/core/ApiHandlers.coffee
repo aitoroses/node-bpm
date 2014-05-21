@@ -1,6 +1,7 @@
 ServerUtils   = require "../utils/ServerUtils"
 log   = require "../utils/ApiLogger"
 finder = ServerUtils.findNode
+transform = ServerUtils.transformNode
 
 
 # Class that provides handlers to the ApiServer API register
@@ -48,12 +49,17 @@ class ApiHandlers
 
 							key = node.split(":")
 							key = if key.length == 2 then key[1] else key[0]
-							result = fn.call({find: finderFn, node: finded})
+							# Call process func passing especific utils
+							result = fn.call({find: finderFn, node: finded, finder: finder})
 							if result?
 								result.firstChild = result.lastChild = undefined
 							processedNodes[key] = result
 
 					res.json(processedNodes)
+
+				# Transform the node if it is true
+				else if typeof nodes is "boolean" and nodes then res.json(transform(xmldoc.children[0]))
+				
 				else res.json({error: nodes})
 		)
 
