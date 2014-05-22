@@ -20,7 +20,7 @@ class AuthenticateOperation
 	#
 	# @example Returning an object or an array
 	#   process: -> 
-	# 	  "com:workflowContext": -> 
+	# 	  "workflowContext": -> 
 	# 		  credential: 
 	# 			  login: @find("com:login").val
 	# 			  password: @find("com:password").val
@@ -33,15 +33,13 @@ class AuthenticateOperation
 	#   # Does not use the namespace with this alternative syntax
 	#   
 	#   process: -> ["faultcode", "message"]
-	process: -> 
-		"workflowContext": -> 
-			credential: 
-				login: @find("login").val
-				identityContext: @find("identityContext").val
-			token: @find("token").val
-			locale: @find("locale").val
-			timezone: @find("timeZone").val
-
+	#
+	#   ## Best way syntax
+	#   # With this syntax the entire message gets parsed in
+	#   # Does not use the namespace with this alternative syntax
+	#   
+	#   process: -> true
+	process: -> true
 	
 	
 
