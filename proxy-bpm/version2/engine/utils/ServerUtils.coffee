@@ -34,20 +34,46 @@ class ServerUtils
 	# @param [String] nodeName node that we want to find
 	# @return [Object] Resulting JSON object
 	@transformNode = (node) ->
-		iterate = (node, step) ->
-			# If this node has not children iteration has finished
-			if node.children.length is 0 
-				step[node.name] = node.val
-				return step
+		class NodeRunner
+			constructor: (@node, @parent) ->
+				@child = 0  
+			hasMore: -> @child < @node.children.length
+			hasChild: -> @node.children.length > 0
+			next: () ->
+				node = new NodeRunner(@node.children[@child], @)
+				@child = @child+1
+				return node
+			getVal: () ->
+				@node.val
+			getName: () ->
+				processTag(@node.name)
+			getParent: -> @parent
+
+		firstNode = new NodeRunner(node)
+		result = {}
+
+		processTag = (tagName) -> 
+			tags = tagName.split(":")
+			tag = if tags.length > 1 then tags[1] else tags[0]
+
+		iterateNode = (node, step) ->
+			if not node.hasChild() then step[node.getName()] = node.getVal()
 			else
-				# We have some childs at this point
-				result = {}
-				node.children.map((child) -> iterate(child, result))
-				step[node.name] = result
-				return step	
-		result = iterate(node, newStep = {})
-		if result[node.name] is "" then return {error: "Empty response."}
-		else return result
+				step[node.getName()] = []
+				step[node.getName()].push {}
+				while node.hasMore()
+					next = node.next()
+					if next.hasChild() then step[node.getName()].push {} # causes artifacts
+					iterateNode(next, step[node.getName()][step[node.getName()].length-1])
+				# Delete empty objects in arrays caused by algorithm (the first object)
+				if Object.keys(step[node.getName()][0]).length is 0 then console.log step[node.getName()].shift()
+
+
+				
+		iterateNode(firstNode, result)
+
+		return result
+		
 
 	# Get the body of the xml document
 	# @param [String] xml XML pure string to be converted
