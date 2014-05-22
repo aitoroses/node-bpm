@@ -88,6 +88,23 @@ class ApiHandlers
 		res.header({"Content-Type": "text/xml"})
 		res.end(body)
 
+	# Handler method to get the XML representation of the model
+	@node: (req, res) ->
+
+		# Define first the context
+		_request.call({
+			api: @api
+			message: => _getMessage.call(@, req.args)
+		
+		}, (err, response, body) =>
+				
+			if err
+				return res.json(err)
+			else
+				xmldoc = ServerUtils.getBody(body)
+				res.json(xmldoc)
+		)
+
 
 	# Handler method that returns the exact message given by the BPM engine
 	@response: (req, res) ->
