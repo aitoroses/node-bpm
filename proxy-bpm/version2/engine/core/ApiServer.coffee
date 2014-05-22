@@ -99,12 +99,12 @@ _handlers = (api, operation) ->
 		handler: ApiHandlers.request
 		debug: true
 	,
-		url: "/node"
-		handler: ApiHandlers.node
-		debug: true
-	,
 		url: "/response"
 		handler: ApiHandlers.response
+		debug: true
+	,
+		url: "/node"
+		handler: ApiHandlers.node
 		debug: true
 	]
 
