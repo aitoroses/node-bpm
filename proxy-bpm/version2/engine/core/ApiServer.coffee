@@ -117,8 +117,8 @@ _handlers = (api, operation) ->
 		# Register as a GET method
 		if handlerObject.debug
 			if api.config.debug
-				log.irrelevant "Debug GET #{base + _url}"
-				@http.get(base + _url, _handler)
+				log.irrelevant "Debug #{_method.toUpperCase()} #{base + _url}"
+				@http[_method](base + _url, _handler)
 		else
 			@http[_method](base + _url, _handler)
 

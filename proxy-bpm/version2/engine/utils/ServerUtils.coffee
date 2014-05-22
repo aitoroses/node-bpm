@@ -47,6 +47,7 @@ class ServerUtils
 				@node.val
 			getName: () ->
 				processTag(@node.name)
+			getAttrs: () -> @node.attr
 			getParent: -> @parent
 
 		firstNode = new NodeRunner(node)
@@ -57,9 +58,13 @@ class ServerUtils
 			tag = if tags.length > 1 then tags[1] else tags[0]
 
 		iterateNode = (node, step) ->
-			if not node.hasChild() then step[node.getName()] = node.getVal()
+			if not node.hasChild() 
+			  if Object.keys(node.getAttrs()).length > 0 then step[node.getName() + "Attrs"] = node.getAttrs()
+			  console.log node.getAttrs()
+			  step[node.getName()] = node.getVal()
 			else
 				step[node.getName()] = []
+				if Object.keys(node.getAttrs()).length > 0 then step[node.getName() + "Attrs"] = node.getAttrs()
 				step[node.getName()].push {}
 				while node.hasMore()
 					next = node.next()

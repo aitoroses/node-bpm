@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:for="http://xmlns.bpmsoasolutions.com/eapproval/forms">
+   <soapenv:Header/>
+   <soapenv:Body>
+      ${formUpdate.toXML()}
+   </soapenv:Body>
+</soapenv:Envelope>
