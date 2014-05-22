@@ -1,0 +1,4 @@
+<ser:formGet>
+    <ser:requestId>${requestId}</ser:requestId>
+    <ser:currentStepId>${currentStepId}</ser:currentStepId>
+</ser:formGet>

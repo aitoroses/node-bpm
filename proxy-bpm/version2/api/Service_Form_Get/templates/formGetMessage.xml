@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Get">
+   <soapenv:Header/>
+   <soapenv:Body>
+      ${formGet.toXML()}
+   </soapenv:Body>
+</soapenv:Envelope>

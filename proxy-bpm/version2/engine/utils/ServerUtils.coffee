@@ -66,7 +66,7 @@ class ServerUtils
 					if next.hasChild() then step[node.getName()].push {} # causes artifacts
 					iterateNode(next, step[node.getName()][step[node.getName()].length-1])
 				# Delete empty objects in arrays caused by algorithm (the first object)
-				if Object.keys(step[node.getName()][0]).length is 0 then console.log step[node.getName()].shift()
+				if Object.keys(step[node.getName()][0]).length is 0 then step[node.getName()].shift()
 
 
 				
