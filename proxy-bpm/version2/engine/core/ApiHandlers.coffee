@@ -17,6 +17,12 @@ class ApiHandlers
 	# It processes the message returned from the BPM engine and gives the result
 	# The process function should be the member of the operation and can return an object or an array
 	@default: (req, res) ->
+
+		# Api Describe?
+		if req.args.describe_api
+			if @operation.describe? then return res.json(@operation.describe())
+			else return res.json({error: "Not API Description"})
+
 		# Define first the context
 		_request.call({
 			api: @api

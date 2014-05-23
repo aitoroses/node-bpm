@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Service_Form_Update" resourceRoot="" soapui-version="4.6.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="Service_Form_UpdateBinding" type="wsdl" bindingName="{http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update}Service_Form_UpdateBinding" soapVersion="1_1" anonymous="optional" definition="http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?WSDL"><con:part><con:url>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?WSDL</con:url><con:content><![CDATA[<wsdl:definitions name="Service_Form_Update" targetNamespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:ns1="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:client="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:documentation>
+    <abstractWSDL>http://localhost.localdomain:7003/soa-infra/services/default/eAppServices!1.0/Service_Form_Update.wsdl</abstractWSDL>
+  </wsdl:documentation>
+  <plnk:partnerLinkType name="Service_Form_Update">
+    <plnk:role name="Service_Form_UpdateProvider" portType="ns1:Service_Form_Update"/>
+  </plnk:partnerLinkType>
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" schemaLocation="http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?XSD=xsd/Service_Form_Update.xsd"/>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="Service_Form_UpdateRequestMessage">
+    <wsdl:part name="payload" element="ns1:formUpdate"/>
+  </wsdl:message>
+  <wsdl:message name="Service_Form_UpdateResponseMessage">
+    <wsdl:part name="payload" element="ns1:formUpdateResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="Service_Form_Update">
+    <wsdl:operation name="formUpdate">
+      <wsdl:input message="ns1:Service_Form_UpdateRequestMessage"/>
+      <wsdl:output message="ns1:Service_Form_UpdateResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service_Form_UpdateBinding" type="ns1:Service_Form_Update">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="formUpdate">
+      <soap:operation style="document" soapAction="formUpdate"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service_Form_Update_ep_ep">
+    <wsdl:port name="Service_Form_Update_pt" binding="ns1:Service_Form_UpdateBinding">
+      <soap:address location="http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?XSD=xsd/Service_Form_Update.xsd</con:url><con:content><![CDATA[<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:bssf="http://xmlns.bpmsoasolutions.com/eapproval/forms" xmlns="http://www.w3.org/2001/XMLSchema">
+  <import schemaLocation="http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?XSD=xsd/StepForm.xsd" namespace="http://xmlns.bpmsoasolutions.com/eapproval/forms"/>
+  <element name="formUpdate">
+    <complexType>
+      <sequence>
+        <element name="requestId" type="decimal"/>
+        <element name="form" type="bssf:formComponentType"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="formUpdateResponse">
+    <complexType>
+      <sequence>
+        <element name="updated" type="boolean"/>
+      </sequence>
+    </complexType>
+  </element>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep?XSD=xsd/StepForm.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://xmlns.bpmsoasolutions.com/eapproval/forms" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bss="http://xmlns.bpmsoasolutions.com/eapproval/forms">
+  <xsd:element name="formConfig" type="bss:formComponentType"/>
+  <xsd:complexType name="generalInfoType">
+    <xsd:sequence>
+      <xsd:element type="xsd:boolean" name="showGeneralData" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="showDocumentLink" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="showExternalLink" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="showAuditTrail" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:string" name="header" maxOccurs="1" minOccurs="1" default="Form header"/>
+      <xsd:element type="xsd:string" name="footer" maxOccurs="1" minOccurs="1" default="Form footer"/>
+      <xsd:element type="xsd:string" name="auditTrailCommentsTitle" maxOccurs="1" minOccurs="1" default="Comments:"/>
+      <xsd:element type="xsd:boolean" name="enableAuditComments" maxOccurs="1" minOccurs="0" default="true"/>
+      <xsd:element type="xsd:string" name="auditTrailTitle" maxOccurs="1" minOccurs="1" default="Audit Trail:"/>
+      <xsd:element type="xsd:string" name="documentLinkTitle" maxOccurs="1" minOccurs="1" default="Gestor Documental"/>
+      <xsd:element type="xsd:string" name="externalLinkTitle" maxOccurs="1" minOccurs="0"/>
+      <xsd:element type="xsd:string" name="helpText" maxOccurs="1" minOccurs="0"/>
+      <xsd:element type="bss:documentLinkComponentType" name="documentLinkComponent" maxOccurs="unbounded" minOccurs="1"/>
+      <xsd:element type="bss:externalLinkComponentType" name="externalLinkComponent" maxOccurs="unbounded" minOccurs="1"/>
+      <xsd:element type="bss:buttonInfoType" name="acceptButton" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:buttonInfoType" name="cancelButton" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:buttonInfoType" name="rejectButton" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:buttonInfoType" name="saveButton" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:buttonInfoType" name="abortButton" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:customActionsType" name="customActions" maxOccurs="1" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="documentLinkComponentType">
+    <xsd:attribute type="xsd:string" name="label" use="required"/>
+    <xsd:attribute type="xsd:string" name="link"/>
+    <xsd:attribute type="xsd:string" name="hostBusinessParameter"/>
+    <xsd:attribute type="xsd:string" name="pathBusinessParameter"/>
+  </xsd:complexType>
+  <xsd:complexType name="externalLinkComponentType">
+    <xsd:attribute type="xsd:string" name="label" use="required"/>
+    <xsd:attribute type="xsd:string" name="link"/>
+    <xsd:attribute type="xsd:string" name="hostBusinessParameter"/>
+    <xsd:attribute type="xsd:string" name="pathBusinessParameter"/>
+  </xsd:complexType>
+  <xsd:complexType name="customActionsType">
+    <xsd:sequence>
+      <xsd:element type="bss:actionInfoType" name="action" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="actionInfoType">
+    <xsd:complexContent>
+      <xsd:extension base="bss:buttonInfoType">
+        <xsd:attribute type="xsd:string" name="name" use="required"/>
+        <xsd:attribute type="bss:formActionType" name="formAction" default="accept"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="buttonInfoType">
+    <xsd:sequence>
+      <xsd:element type="xsd:string" name="text" maxOccurs="1" minOccurs="1" default="buttonText"/>
+      <xsd:element type="xsd:boolean" name="visible" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="validation" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="commentsMandatory" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="confirmation" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:string" name="confirmationMsg" maxOccurs="1" minOccurs="1" default=""/>
+      <xsd:element type="xsd:string" name="tooltip" maxOccurs="1" minOccurs="1" default=""/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="fieldActivityConfigType">
+    <xsd:sequence>
+      <xsd:element type="xsd:string" name="label" maxOccurs="1" minOccurs="1" default="Field label"/>
+      <xsd:element type="xsd:string" name="tooltip" maxOccurs="1" minOccurs="1" default="Field tooltip"/>
+      <xsd:element type="xsd:boolean" name="visible" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="mandatory" maxOccurs="1" minOccurs="1" default="false"/>
+      <xsd:element type="xsd:boolean" name="editable" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:string" name="mask" maxOccurs="1" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="validValuesType">
+    <xsd:sequence>
+      <xsd:element name="validValue" type="bss:validValueType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="targetField" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="basicRuntimeConfigType">
+    <xsd:sequence>
+      <xsd:element type="xsd:string" name="value"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="tableName" use="required"/>
+    <xsd:attribute type="xsd:string" name="nameColumn" use="required"/>
+    <xsd:attribute type="xsd:string" name="valueColumn" use="required"/>
+    <xsd:attribute type="xsd:string" name="fieldId" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="tableRuntimeConfigType">
+    <xsd:sequence>
+      <xsd:element type="bss:columnRuntimeConfigType" name="columnConfig" maxOccurs="unbounded" minOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="tableName" use="required"/>
+    <xsd:attribute type="xsd:string" name="fieldId" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="columnRuntimeConfigType">
+    <xsd:sequence>
+      <xsd:element type="xsd:string" name="values" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="columnName"/>
+    <xsd:attribute type="xsd:string" name="columnLabel"/>
+  </xsd:complexType>
+  <xsd:complexType name="tableFieldComponentType">
+    <xsd:sequence>
+      <xsd:element type="bss:tableRuntimeConfigType" name="runtimeTableConfig" maxOccurs="1" minOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="fieldComponentType">
+    <xsd:sequence>
+      <xsd:element type="bss:fieldType" name="fieldType" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:fieldActivityConfigType" name="activityConfig" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="xsd:string" name="format"/>
+      <xsd:element type="bss:basicRuntimeConfigType" name="runtimeConfig" maxOccurs="1" minOccurs="0"/>
+      <xsd:element type="bss:tableFieldComponentType" name="runtimeTableConfig" maxOccurs="1" minOccurs="0"/>
+      <xsd:element type="bss:validValuesType" name="validValues" maxOccurs="1" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="fieldId" use="required"/>
+    <xsd:attribute type="xsd:string" name="fieldName" use="required"/>
+    <xsd:attribute type="xsd:boolean" name="isGeneral" default="false"/>
+    <xsd:attribute type="xsd:boolean" name="isExtended" default="false"/>
+  </xsd:complexType>
+  <xsd:complexType name="categoryComponentType">
+    <xsd:sequence>
+      <xsd:element type="bss:fieldComponentType" name="field" maxOccurs="unbounded" minOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name" use="required"/>
+    <xsd:attribute type="xsd:string" name="label" use="required"/>
+    <xsd:attribute type="xsd:boolean" name="showHeader" use="required"/>
+    <xsd:attribute type="xsd:integer" name="rows" default="10000"/>
+    <xsd:attribute type="xsd:integer" name="columns" default="1"/>
+  </xsd:complexType>
+  <xsd:complexType name="validValueType">
+    <xsd:attribute name="id" type="xsd:string"/>
+    <xsd:attribute name="value" type="xsd:string"/>
+  </xsd:complexType>
+  <xsd:complexType name="attachmentsComponentType">
+    <xsd:sequence>
+      <xsd:element name="attachmentInfo" type="bss:attachmentType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="bss:attachmentsComponentTypeType"/>
+  </xsd:complexType>
+  <xsd:complexType name="attachmentType">
+    <xsd:sequence>
+      <xsd:element name="attachId" type="xsd:decimal" nillable="true"/>
+      <xsd:element name="version" type="xsd:decimal" nillable="true"/>
+      <xsd:element name="requestId" type="xsd:decimal" nillable="true"/>
+      <xsd:element type="xsd:string" name="label" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:string" name="fileName" minOccurs="1" maxOccurs="1" nillable="false"/>
+      <xsd:element type="xsd:string" name="description" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:string" name="contentType" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:string" name="location" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:dateTime" name="dateUploaded" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:string" name="uploadedBy" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element name="deleted" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element type="xsd:boolean" name="visible" maxOccurs="1" minOccurs="1" default="true"/>
+      <xsd:element type="xsd:boolean" name="mandatory" maxOccurs="1" minOccurs="1" default="false"/>
+      <xsd:element type="xsd:boolean" name="editable" maxOccurs="1" minOccurs="1" default="false"/>
+    </xsd:sequence>
+    <xsd:attribute name="field" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="commentsComponentType">
+    <xsd:sequence>
+      <xsd:element name="comment" type="bss:commentType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="commentType">
+    <xsd:sequence>
+      <xsd:element name="commentId" type="xsd:decimal" nillable="true"/>
+      <xsd:element name="requestId" type="xsd:decimal" nillable="true"/>
+      <xsd:element type="xsd:string" name="commentText" minOccurs="1" maxOccurs="1" nillable="false"/>
+      <xsd:element type="xsd:dateTime" name="dateAdded" minOccurs="1" maxOccurs="1" nillable="true"/>
+      <xsd:element type="xsd:string" name="addedBy" minOccurs="1" maxOccurs="1" nillable="false"/>
+      <xsd:element name="deleted" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element type="xsd:boolean" name="visible" maxOccurs="1" minOccurs="1" default="true"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="executionInfoType">
+    <xsd:sequence>
+      <xsd:element name="userAction" type="xsd:string" minOccurs="1"/>
+      <xsd:element name="requestId" type="xsd:decimal"/>
+      <xsd:element name="comment" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="formComponentType">
+    <xsd:sequence>
+      <xsd:element type="bss:generalInfoType" name="generalInfo" maxOccurs="1" minOccurs="1"/>
+      <xsd:element type="bss:categoryComponentType" name="categories" maxOccurs="unbounded" minOccurs="1"/>
+      <xsd:element type="bss:attachmentsComponentType" name="attachments"/>
+      <xsd:element type="bss:commentsComponentType" name="comments"/>
+      <xsd:element type="bss:executionInfoType" name="executionInfo" maxOccurs="1" minOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="activityId" default="#default#"/>
+  </xsd:complexType>
+  <xsd:simpleType name="fieldType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="lov"/>
+      <xsd:enumeration value="text"/>
+      <xsd:enumeration value="multiline"/>
+      <xsd:enumeration value="datetime"/>
+      <xsd:enumeration value="checkbox"/>
+      <xsd:enumeration value="table"/>
+      <xsd:enumeration value="radiobutton"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="formActionType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="accept"/>
+      <xsd:enumeration value="cancel"/>
+      <xsd:enumeration value="reject"/>
+      <xsd:enumeration value="save"/>
+      <xsd:enumeration value="abort"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="attachmentsComponentTypeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="bounded"/>
+      <xsd:enumeration value="unbounded"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep</con:endpoint></con:endpoints><con:operation isOneWay="false" action="formUpdate" name="formUpdate" bindingOperationName="formUpdate" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:for="http://xmlns.bpmsoasolutions.com/eapproval/forms">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:formUpdate>
+         <ser:requestId>16152</ser:requestId>
+         <ser:form activityId="#default#">
+            <for:categories name="General" label="General" >
+               <!--1 or more repetitions:-->
+               <for:field>
+                  <for:label>Creator For Item Unique Id</for:label>
+                  <for:runtimeConfig>
+                     <for:value>comdirector156123412341234</for:value>
+                  </for:runtimeConfig>
+               </for:field>
+            </for:categories>
+         </ser:form>
+      </ser:formUpdate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="formUpdate"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://soa-server:7003/soa-infra/services/default/eAppServices/Service_Form_Update_ep</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://xmlns.oracle.com/eApp/eAppServices/Service_Form_Update" xmlns:for="http://xmlns.bpmsoasolutions.com/eapproval/forms">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:formUpdate>
+         <ser:requestId>?</ser:requestId>
+         <ser:form activityId="#default#">
+            <for:generalInfo>
+               <for:showGeneralData>true</for:showGeneralData>
+               <for:showDocumentLink>true</for:showDocumentLink>
+               <for:showExternalLink>true</for:showExternalLink>
+               <for:showAuditTrail>true</for:showAuditTrail>
+               <for:header>Form header</for:header>
+               <for:footer>Form footer</for:footer>
+               <for:auditTrailCommentsTitle>Comments:</for:auditTrailCommentsTitle>
+               <!--Optional:-->
+               <for:enableAuditComments>true</for:enableAuditComments>
+               <for:auditTrailTitle>Audit Trail:</for:auditTrailTitle>
+               <for:documentLinkTitle>Gestor Documental</for:documentLinkTitle>
+               <!--Optional:-->
+               <for:externalLinkTitle>?</for:externalLinkTitle>
+               <!--Optional:-->
+               <for:helpText>?</for:helpText>
+               <!--1 or more repetitions:-->
+               <for:documentLinkComponent label="?" link="?" hostBusinessParameter="?" pathBusinessParameter="?"/>
+               <!--1 or more repetitions:-->
+               <for:externalLinkComponent label="?" link="?" hostBusinessParameter="?" pathBusinessParameter="?"/>
+               <for:acceptButton>
+                  <for:text>buttonText</for:text>
+                  <for:visible>true</for:visible>
+                  <for:validation>true</for:validation>
+                  <for:commentsMandatory>true</for:commentsMandatory>
+                  <for:confirmation>true</for:confirmation>
+                  <for:confirmationMsg/>
+                  <for:tooltip/>
+               </for:acceptButton>
+               <for:cancelButton>
+                  <for:text>buttonText</for:text>
+                  <for:visible>true</for:visible>
+                  <for:validation>true</for:validation>
+                  <for:commentsMandatory>true</for:commentsMandatory>
+                  <for:confirmation>true</for:confirmation>
+                  <for:confirmationMsg/>
+                  <for:tooltip/>
+               </for:cancelButton>
+               <for:rejectButton>
+                  <for:text>buttonText</for:text>
+                  <for:visible>true</for:visible>
+                  <for:validation>true</for:validation>
+                  <for:commentsMandatory>true</for:commentsMandatory>
+                  <for:confirmation>true</for:confirmation>
+                  <for:confirmationMsg/>
+                  <for:tooltip/>
+               </for:rejectButton>
+               <for:saveButton>
+                  <for:text>buttonText</for:text>
+                  <for:visible>true</for:visible>
+                  <for:validation>true</for:validation>
+                  <for:commentsMandatory>true</for:commentsMandatory>
+                  <for:confirmation>true</for:confirmation>
+                  <for:confirmationMsg/>
+                  <for:tooltip/>
+               </for:saveButton>
+               <for:abortButton>
+                  <for:text>buttonText</for:text>
+                  <for:visible>true</for:visible>
+                  <for:validation>true</for:validation>
+                  <for:commentsMandatory>true</for:commentsMandatory>
+                  <for:confirmation>true</for:confirmation>
+                  <for:confirmationMsg/>
+                  <for:tooltip/>
+               </for:abortButton>
+               <for:customActions>
+                  <!--Zero or more repetitions:-->
+                  <for:action name="?" formAction="accept">
+                     <for:text>buttonText</for:text>
+                     <for:visible>true</for:visible>
+                     <for:validation>true</for:validation>
+                     <for:commentsMandatory>true</for:commentsMandatory>
+                     <for:confirmation>true</for:confirmation>
+                     <for:confirmationMsg/>
+                     <for:tooltip/>
+                  </for:action>
+               </for:customActions>
+            </for:generalInfo>
+            <!--1 or more repetitions:-->
+            <for:categories name="?" label="?" showHeader="?" rows="10000" columns="1">
+               <!--1 or more repetitions:-->
+               <for:field fieldId="?" fieldName="?" isGeneral="false" isExtended="false">
+                  <for:fieldType>?</for:fieldType>
+                  <for:activityConfig>
+                     <for:label>Field label</for:label>
+                     <for:tooltip>Field tooltip</for:tooltip>
+                     <for:visible>true</for:visible>
+                     <for:mandatory>false</for:mandatory>
+                     <for:editable>true</for:editable>
+                     <!--Optional:-->
+                     <for:mask>?</for:mask>
+                  </for:activityConfig>
+                  <for:format>?</for:format>
+                  <!--Optional:-->
+                  <for:runtimeConfig tableName="?" nameColumn="?" valueColumn="?" fieldId="?">
+                     <for:value>?</for:value>
+                  </for:runtimeConfig>
+                  <!--Optional:-->
+                  <for:runtimeTableConfig>
+                     <for:runtimeTableConfig tableName="?" fieldId="?">
+                        <!--1 or more repetitions:-->
+                        <for:columnConfig columnName="?" columnLabel="?">
+                           <!--Zero or more repetitions:-->
+                           <for:values>?</for:values>
+                        </for:columnConfig>
+                     </for:runtimeTableConfig>
+                  </for:runtimeTableConfig>
+                  <!--Optional:-->
+                  <for:validValues targetField="?">
+                     <!--Zero or more repetitions:-->
+                     <for:validValue id="?" value="?"/>
+                  </for:validValues>
+               </for:field>
+            </for:categories>
+            <for:attachments type="?">
+               <for:attachmentInfo field="?">
+                  <for:attachId>?</for:attachId>
+                  <for:version>?</for:version>
+                  <for:requestId>?</for:requestId>
+                  <for:label>?</for:label>
+                  <for:fileName>?</for:fileName>
+                  <for:description>?</for:description>
+                  <for:contentType>?</for:contentType>
+                  <for:location>?</for:location>
+                  <for:dateUploaded>?</for:dateUploaded>
+                  <for:uploadedBy>?</for:uploadedBy>
+                  <for:deleted>?</for:deleted>
+                  <for:visible>true</for:visible>
+                  <for:mandatory>false</for:mandatory>
+                  <for:editable>false</for:editable>
+               </for:attachmentInfo>
+            </for:attachments>
+            <for:comments>
+               <!--Zero or more repetitions:-->
+               <for:comment>
+                  <for:commentId>?</for:commentId>
+                  <for:requestId>?</for:requestId>
+                  <for:commentText>?</for:commentText>
+                  <for:dateAdded>?</for:dateAdded>
+                  <for:addedBy>?</for:addedBy>
+                  <!--Optional:-->
+                  <for:deleted>?</for:deleted>
+                  <for:visible>true</for:visible>
+               </for:comment>
+            </for:comments>
+            <for:executionInfo>
+               <for:userAction>?</for:userAction>
+               <for:requestId>?</for:requestId>
+               <for:comment>?</for:comment>
+            </for:executionInfo>
+         </ser:form>
+      </ser:formUpdate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="formUpdate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

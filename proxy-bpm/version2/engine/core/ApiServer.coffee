@@ -7,6 +7,8 @@ ApiHandlers   = require "../core/ApiHandlers"
 # Middleware
 corsMiddleware = require "../middleware/cors"
 requestArgumentsMixer = require "../middleware/requestArgumentsMixer"
+requestArgumentsConverter = require "../middleware/requestArgumentsConverter"
+
 
 
 # ApiServer class creates a server
@@ -28,6 +30,7 @@ class ApiServer
 			@http.use express.static(__dirname + '/app')
 			@http.use corsMiddleware
 			@http.use requestArgumentsMixer
+			@http.use requestArgumentsConverter
 
 		@_engine = new ApiEngine();
 		log.cut()
@@ -117,7 +120,7 @@ _handlers = (api, operation) ->
 		# Register as a GET method
 		if handlerObject.debug
 			if api.config.debug
-				log.irrelevant "Debug #{_method.toUpperCase()} #{base + _url}"
+				#log.irrelevant "Debug #{_method.toUpperCase()} #{base + _url}"
 				@http[_method](base + _url, _handler)
 		else
 			@http[_method](base + _url, _handler)

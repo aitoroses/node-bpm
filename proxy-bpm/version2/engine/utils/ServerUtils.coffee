@@ -60,7 +60,6 @@ class ServerUtils
 		iterateNode = (node, step) ->
 			if not node.hasChild() 
 			  if Object.keys(node.getAttrs()).length > 0 then step[node.getName() + "Attrs"] = node.getAttrs()
-			  console.log node.getAttrs()
 			  step[node.getName()] = node.getVal()
 			else
 				step[node.getName()] = []

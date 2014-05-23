@@ -4,13 +4,12 @@ class FormUpdate
 
 	# @param [String] @requestId
 	# @param [Array<Object>] @categories
-	constructor: (@requestId, @categories) ->
+	constructor: (@requestId, @categories, @attachments) ->
 
 		# - category: Object
 		#     - title: String
-		#     - fields: Array<Object>
-		#         - name: String
-		#         - value: String
+		#     - fields: Object<Iterator>
+		#         - fieldId: value
 
 
 module.exports = FormUpdate

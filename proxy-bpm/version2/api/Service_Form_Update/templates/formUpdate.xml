@@ -1,16 +1,27 @@
 <ser:formUpdate>
-    <ser:requestId>${requestId}</ser:requestId>
-    <ser:form activityId="#default#">
-    	<% _.each(categories, function(category) { %>
-	    <for:categories name="${category.title}" label="${category.title}" >
-	       <% _.each(category.fields, function(field) { %>
-	       <for:field fieldId="${field.name}" fieldName="${field.name}">
-	          <for:runtimeConfig>
-	             <for:value>${field.value}</for:value>
-	          </for:runtimeConfig>
-	       </for:field>
-	       <% }) %>
-	    </for:categories>
-	    <% }) %>
-    </ser:form>
+	<ser:requestId>${requestId}</ser:requestId>
+	<ser:form activityId="#default#">
+		<% _.each(categories, function(category) { %>
+		<for:categories name="${category.title}" label="${category.title}" >
+			<% _.each(category.fields, function(value, key) { %>
+			<for:field fieldId="${key}" fieldName="${key}">
+				<for:runtimeConfig>
+					<for:value>${value}</for:value>
+				</for:runtimeConfig>
+			</for:field>
+			<% }) %>
+		</for:categories>
+		<% }) %>
+		<% if (attachments !== undefined) { %>
+		<for:attachments>
+			<% _.each(attachments, function(attachment) { %>
+			<for:attachmentInfo>
+				<% _.each(attachment, function(value, key) { %>
+					<for:${key}>${value}</for:${key}>
+				<% }) %>
+			</for:attachmentInfo>
+			<% }) %>
+		</for:attachments>
+		<% } %>
+	</ser:form>
 </ser:formUpdate>
