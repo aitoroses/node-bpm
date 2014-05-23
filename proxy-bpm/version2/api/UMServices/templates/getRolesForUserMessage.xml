@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:um="http://xmlns.novartis.com/bpm/um">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <um:getRolesForUser>
+		${user.toXML()}         
+      </um:getRolesForUser>
+   </soapenv:Body>
+</soapenv:Envelope>

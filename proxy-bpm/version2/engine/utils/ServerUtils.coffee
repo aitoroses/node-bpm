@@ -84,7 +84,8 @@ class ServerUtils
 	# @return [XMLDoc] xmldoc converted message
 	@getBody: (xml) ->
 		document = new xmldoc.XmlDocument(xml);
-		return document.children[1]
+		if not document.children[1]? then return document.children[0]
+		else return document.children[1]
 
 
 	# Send a message to the BPM engine

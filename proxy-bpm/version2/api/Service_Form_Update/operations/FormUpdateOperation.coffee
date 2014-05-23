@@ -19,26 +19,26 @@ class FormUpdateOperation
 	# Describe how an api should be called
 	describe: ->
 
-		{	
-		  "requestId": 16152,
-		  "categories": [
-		    {
-		      "title": "General",
-		      "fields": {
-		      	"creatorName": "comdirector15"
-		      }
-		    }
-		  ],
-		  "attachments": [
-		    {
-		      "version": 1,
-		      "label": "asdfasdfasdf",
-		      "fileName": "ACLEntry.data",
-		      "description": "asdfasdfa",
-		      "location": "/tmp",
-		      "uploadedBy": "comdirector15"
-		    }
-		  ]
+		{
+			"requestId": 16152,
+			"categories": [
+				{
+					"title": "General",
+					"fields": {
+						"creatorName": "comdirector15"
+					}
+				}
+			],
+			"attachments": [
+				{
+					"version": 1,
+					"label": "asdfasdfasdf",
+					"fileName": "ACLEntry.data",
+					"description": "asdfasdfa",
+					"location": "/tmp",
+					"uploadedBy": "comdirector15"
+				}
+			]
 		}
 		
 

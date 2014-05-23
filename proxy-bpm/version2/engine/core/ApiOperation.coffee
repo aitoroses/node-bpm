@@ -31,6 +31,12 @@ class ApiOperation
 	#   # Does not use the namespace with this alternative syntax
 	#   
 	#   process: -> ["faultcode", "message"]
+	#
+	#   ## Best way syntax
+	#   # With this syntax the entire message gets parsed in
+	#   # Does not use the namespace with this alternative syntax
+	#   
+	#   process: -> true
 	process: -> 
 		"Please override the Operation.process() method."
 

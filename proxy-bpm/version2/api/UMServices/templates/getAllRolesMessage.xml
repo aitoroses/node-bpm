@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:um="http://xmlns.novartis.com/bpm/um">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <um:getAllRoles/>
+   </soapenv:Body>
+</soapenv:Envelope>
