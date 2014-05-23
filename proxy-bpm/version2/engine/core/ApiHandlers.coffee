@@ -3,6 +3,10 @@ log   = require "../utils/ApiLogger"
 finder = ServerUtils.findNode
 transform = ServerUtils.transformNode
 
+# Testing
+vows = require('vows')
+assert = require('assert')
+
 
 # Class that provides handlers to the ApiServer API register
 #
@@ -58,7 +62,8 @@ class ApiHandlers
 							# Call process func passing especific utils
 							result = fn.call({find: finderFn, node: finded, finder: finder})
 							if result?
-								result.firstChild = result.lastChild = undefined
+								delete result.firstChild
+								delete result.lastChild
 							processedNodes[key] = result
 
 					res.json(processedNodes)
@@ -128,6 +133,81 @@ class ApiHandlers
 				res.end(body)
 		)
 
+	# Handler just for testing the operation
+	@test: (req, res) ->
+		# Get the test
+		test = @operation.test
+		if not test? then return res.json(400, {error: "Test not found.", httpStatus: 400})
+		# Get the arguments for the request
+		args = test.args
+		# Get the expectation function
+		expect = test.expect
+
+		### PART CORRESPONDING TO THE DEFAULT HANDLER ###
+
+		# Define first the context
+		_request.call({
+			api: @api
+			# Mock up the args on the call
+			message: => _getMessage.call(@, args)
+		
+		}, (err, response, body) =>
+				
+			if err
+				return res.json(err)
+			else
+				xmldoc = ServerUtils.getBody(body)
+				nodes = @operation.process.call(body)
+
+				if typeof nodes is "object" # array of an object
+					# If nodes it's an array
+					if nodes.length?
+						processedNodes = nodes.map((node) -> 
+							result = finder(node, xmldoc)
+							if result?
+								result.firstChild = result.lastChild = undefined
+							return result
+						)
+					else
+						# If nodes it's a hash
+						processedNodes = {}
+						for node,fn of nodes
+							
+							finded = finder(node, xmldoc)
+							finderFn = (node) -> finder(node, finded)
+
+							key = node.split(":")
+							key = if key.length == 2 then key[1] else key[0]
+							# Call process func passing especific utils
+							result = fn.call({find: finderFn, node: finded, finder: finder})
+							if result?
+								delete result.firstChild
+								delete result.lastChild
+							processedNodes[key] = result
+
+
+					_testRunning()
+					_runExpectations.bind(@)(processedNodes)
+
+				# Transform the node if it is true
+				else if typeof nodes is "boolean" and nodes
+					_testRunning()
+					_runExpectations(transform(xmldoc.children[0]))
+				
+				else res.json({error: nodes})
+		)
+
+		_runExpectations = (result) ->
+			topic = -> result
+			expectations = {}
+			for key,value of expect
+				expectations.topic = topic
+				expectations[key] = value.bind({assert: assert})
+			tests = {}
+			tests["Test #{@operation.constructor.name}"] = expectations	
+			vows.describe('Testing').addBatch(tests).run()
+
+		_testRunning = -> res.json(200, {message: "Running test. Look at console."})
 
 
 # Use the operations model() method to construct the model object
