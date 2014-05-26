@@ -18,8 +18,8 @@ class FormUpdateOperation
 
 	# Describe how an api should be called
 	describe: ->
-
-		{
+		example:
+		
 			"requestId": 16152,
 			"categories": [
 				{
@@ -39,7 +39,7 @@ class FormUpdateOperation
 					"uploadedBy": "comdirector15"
 				}
 			]
-		}
+		
 		
 
 module.exports = FormUpdateOperation
