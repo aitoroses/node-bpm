@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+var program = require('commander');
+
+var createAPI = require("./lib/createAPI")
+
+program
+  .version('0.0.1')
+  .option('-a, --api [name]', 'Create a new API')
+  .parse(process.argv);
+
+if(typeof program.api == "string") {
+	createAPI(program.api)
+}

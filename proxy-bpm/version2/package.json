@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "author": "",
   "license": "BSD-2-Clause",
@@ -12,15 +12,16 @@
     "request": "~2.33.0",
     "xmldoc": "~0.1.2",
     "express": "~3.4.8",
-    "underscore": "~1.6.0",
-    "coffee-script": "~1.7.1",
-    "interfake": "~1.2.0",
     "lodash": "~2.4.1",
     "async": "~0.8.0",
     "colors": "~0.6.2",
-    "co": "~3.0.6",
-    "thunkify": "~2.1.1",
-    "vows": "~0.7.0",
-    "assert": "~1.1.1"
+    "commander": "~2.2.0",
+    "ncp": "~0.5.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.19.0",
+    "assert": "~1.1.1",
+    "chai": "~1.9.1",
+    "vows": "~0.7.0"
   }
 }

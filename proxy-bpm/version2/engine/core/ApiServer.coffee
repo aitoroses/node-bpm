@@ -109,10 +109,10 @@ _handlers = (api, operation) ->
 		url: "/node"
 		handler: ApiHandlers.node
 		debug: true
-	,
-		url: "/test"
-		handler: ApiHandlers.test
-		debug: true
+	# ,
+	# 	url: "/test"
+	# 	handler: ApiHandlers.test
+	# 	debug: true
 	]
 
 	handlerObjects.map ((handlerObject) ->
