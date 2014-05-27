@@ -3,10 +3,6 @@ log   = require "../utils/ApiLogger"
 finder = ServerUtils.findNode
 transform = ServerUtils.transformNode
 
-# Testing
-vows = require('vows')
-assert = require('assert')
-
 
 # Class that provides handlers to the ApiServer API register
 #
@@ -30,7 +26,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args)
+			message: => _getMessage.call(@, req.args, req, res)
 		
 		}, (err, response, body) =>
 				
@@ -38,7 +34,7 @@ class ApiHandlers
 				return res.json(err)
 			else
 				xmldoc = ServerUtils.getBody(body)
-				nodes = @operation.process.call(body)
+				nodes = @operation.process.call(body, req, res, response)
 
 				if typeof nodes is "object" # array of an object
 					# If nodes it's an array
@@ -79,7 +75,7 @@ class ApiHandlers
 
 	# Handler method returns the model constructed by the operation with the params
 	@model: (req, res) ->
-		res.json _getModel.call(@, req.args)
+		res.json _getModel.call(@, req.args, req, res)
 
 
 
@@ -87,7 +83,7 @@ class ApiHandlers
 	# Handler method to get the XML representation of the model
 	@modelXML: (req, res) ->
 		# Get the model
-		model = _getModel.call(@, req.args)
+		model = _getModel.call(@, req.args, req, res)
 		# Don't use "application/xml" content-type
 		res.end(model.toXML())
 
@@ -95,7 +91,7 @@ class ApiHandlers
 
 	# Handler method to get the XML representation of the model
 	@request: (req, res) ->
-		body = _getMessage.call(@, req.args)
+		body = _getMessage.call(@, req.args, req, res)
 		res.header({"Content-Type": "text/xml"})
 		res.end(body)
 
@@ -105,7 +101,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args)
+			message: => _getMessage.call(@, req.args, req, res)
 		
 		}, (err, response, body) =>
 				
@@ -122,7 +118,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args)
+			message: => _getMessage.call(@, req.args, req, res)
 		
 		}, (err, response, body) =>
 			if err
@@ -133,89 +129,12 @@ class ApiHandlers
 				res.end(body)
 		)
 
-	# # Handler just for testing the operation
-	# @test: (req, res) ->
-	# 	# Get the test
-	# 	test = @operation.test
-	# 	if not test? then return res.json(400, {error: "Test not found.", httpStatus: 400})
-	# 	# Get the arguments for the request
-	# 	args = test.args
-	# 	# Get the expectation function
-	# 	expect = test.expect
-
-	# 	### PART CORRESPONDING TO THE DEFAULT HANDLER ###
-
-	# 	# Define first the context
-	# 	_request.call({
-	# 		api: @api
-	# 		# Mock up the args on the call
-	# 		message: => _getMessage.call(@, args)
-		
-	# 	}, (err, response, body) =>
-				
-	# 		if err
-	# 			return res.json(err)
-	# 		else
-	# 			xmldoc = ServerUtils.getBody(body)
-	# 			nodes = @operation.process.call(body)
-
-	# 			if typeof nodes is "object" # array of an object
-	# 				# If nodes it's an array
-	# 				if nodes.length?
-	# 					processedNodes = nodes.map((node) -> 
-	# 						result = finder(node, xmldoc)
-	# 						if result?
-	# 							result.firstChild = result.lastChild = undefined
-	# 						return result
-	# 					)
-	# 				else
-	# 					# If nodes it's a hash
-	# 					processedNodes = {}
-	# 					for node,fn of nodes
-							
-	# 						finded = finder(node, xmldoc)
-	# 						finderFn = (node) -> finder(node, finded)
-
-	# 						key = node.split(":")
-	# 						key = if key.length == 2 then key[1] else key[0]
-	# 						# Call process func passing especific utils
-	# 						result = fn.call({find: finderFn, node: finded, finder: finder})
-	# 						if result?
-	# 							delete result.firstChild
-	# 							delete result.lastChild
-	# 						processedNodes[key] = result
-
-
-	# 				_testRunning()
-	# 				_runExpectations.bind(@)(processedNodes)
-
-	# 			# Transform the node if it is true
-	# 			else if typeof nodes is "boolean" and nodes
-	# 				_testRunning()
-	# 				_runExpectations(transform(xmldoc.children[0]))
-				
-	# 			else res.json({error: nodes})
-	# 	)
-
-	# 	_runExpectations = (result) ->
-	# 		topic = -> result
-	# 		expectations = {}
-	# 		for key,value of expect
-	# 			expectations.topic = topic
-	# 			expectations[key] = value.bind({assert: assert})
-	# 		tests = {}
-	# 		tests["Test #{@operation.constructor.name}"] = expectations	
-	# 		vows.describe('Testing').addBatch(tests).run()
-
-	# 	_testRunning = -> res.json(200, {message: "Running test. Look at console."})
-
 
 # Use the operations model() method to construct the model object
 # @param [Object] args the args object to retrieve from the URL
 # @return [Object] the model object of the operation
-_getModel = (args) ->
-	data = @operation.model.call({api: @api, args: args});
-
+_getModel = (args, req, res) ->
+	data = @operation.model.call({api: @api, args: args}, req, res);
 
 
 
@@ -223,8 +142,8 @@ _getModel = (args) ->
 # Model process to get the XML representation of the model
 # @param [Object] args, the args object to retrieve from the URL
 # @return [String], the XML chunk of the message that is gonna be sended to the BPM engine
-_getMessage = (args) ->
-	model = _getModel.call(@, args)
+_getMessage = (args, req, res) ->
+	model = _getModel.call(@, args, req, res)
 	modelXML = model.toXML();
 	# Get the Message
 	Message = @api.getMessage(@operation.constructor.MESSAGE)

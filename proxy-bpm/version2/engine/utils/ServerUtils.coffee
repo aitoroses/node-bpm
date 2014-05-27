@@ -94,11 +94,13 @@ class ServerUtils
 	# @param {Function} callback return function with this params (err, response, body)
 	# @return [XMLDoc] xmldoc converted message
 	@makeSoapRequest: (uri, message, callback) ->
+
 		request(
 			method: 'POST',
 			uri: uri
 			headers: {"Content-Type": "text/xml"}
 			body: message
+			jar: true
 		, callback)
 
 

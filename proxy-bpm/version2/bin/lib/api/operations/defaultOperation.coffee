@@ -19,8 +19,30 @@ class Operation
 
 
 	# Transform the request
-	# There are alternative ways on doing this
-	# Returning, "Boolean", "Array", or Hash Object
+	# Return some nodes on the response
+	# @return [Array<String>] Array of node names to be processed
+	#
+	# @example Returning an object or an array
+	#   process: -> 
+	# 	  "workflowContext": -> 
+	# 		  credential: 
+	# 			  login: @find("com:login").val
+	# 			  password: @find("com:password").val
+	# 		  token: @find("com:token").val
+	# 		  locale: @find("com:locale").val
+	# 		  timezone: @find("com:timeZone").val
+	#
+	#   ## Alternative Syntax
+	#   # This way nodes are not processed and instead the entire nodes are returned
+	#   # Does not use the namespace with this alternative syntax
+	#   
+	#   process: -> ["faultcode", "message"]
+	#
+	#   ## Best way syntax
+	#   # With this syntax the entire message gets parsed in
+	#   # Does not use the namespace with this alternative syntax
+	#   
+	#   process: -> true
 	process: ->
 
 		OrgUnits: -> @node.children.map (org) -> org.children[0].val
