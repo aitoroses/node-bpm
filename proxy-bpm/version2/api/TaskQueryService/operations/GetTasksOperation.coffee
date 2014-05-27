@@ -8,14 +8,11 @@ class GetTasksOperation
 
 	# Generate the model for the message
 	# @return [Object], Generated model
-	model: (req) ->
+	model: ->
 		WorkflowContext = @api.getType("WorkflowContext")
 		Credential = @api.getType("Credential")
 		credential = if @args.login? then new Credential(@args.login, @args.password) else new Credential
-		
-		# Session?
-		token = @args.token || req.cookies["adfbridge.token"]
-		new WorkflowContext(token, credential)
+		new WorkflowContext(@args.token, credential)
 
 
 	# Transform the request

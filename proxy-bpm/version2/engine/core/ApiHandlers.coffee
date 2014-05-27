@@ -26,7 +26,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args, req, res)
+			message: => _getMessage.call(@, req.args)
 		
 		}, (err, response, body) =>
 				
@@ -34,7 +34,7 @@ class ApiHandlers
 				return res.json(err)
 			else
 				xmldoc = ServerUtils.getBody(body)
-				nodes = @operation.process.call(body, req, res, response)
+				nodes = @operation.process.call(body)
 
 				if typeof nodes is "object" # array of an object
 					# If nodes it's an array
@@ -75,7 +75,7 @@ class ApiHandlers
 
 	# Handler method returns the model constructed by the operation with the params
 	@model: (req, res) ->
-		res.json _getModel.call(@, req.args, req, res)
+		res.json _getModel.call(@, req.args)
 
 
 
@@ -83,7 +83,7 @@ class ApiHandlers
 	# Handler method to get the XML representation of the model
 	@modelXML: (req, res) ->
 		# Get the model
-		model = _getModel.call(@, req.args, req, res)
+		model = _getModel.call(@, req.args)
 		# Don't use "application/xml" content-type
 		res.end(model.toXML())
 
@@ -91,7 +91,7 @@ class ApiHandlers
 
 	# Handler method to get the XML representation of the model
 	@request: (req, res) ->
-		body = _getMessage.call(@, req.args, req, res)
+		body = _getMessage.call(@, req.args)
 		res.header({"Content-Type": "text/xml"})
 		res.end(body)
 
@@ -101,7 +101,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args, req, res)
+			message: => _getMessage.call(@, req.args)
 		
 		}, (err, response, body) =>
 				
@@ -118,7 +118,7 @@ class ApiHandlers
 		# Define first the context
 		_request.call({
 			api: @api
-			message: => _getMessage.call(@, req.args, req, res)
+			message: => _getMessage.call(@, req.args)
 		
 		}, (err, response, body) =>
 			if err
@@ -133,8 +133,9 @@ class ApiHandlers
 # Use the operations model() method to construct the model object
 # @param [Object] args the args object to retrieve from the URL
 # @return [Object] the model object of the operation
-_getModel = (args, req, res) ->
-	data = @operation.model.call({api: @api, args: args}, req, res);
+_getModel = (args) ->
+	data = @operation.model.call({api: @api, args: args});
+
 
 
 
@@ -142,8 +143,8 @@ _getModel = (args, req, res) ->
 # Model process to get the XML representation of the model
 # @param [Object] args, the args object to retrieve from the URL
 # @return [String], the XML chunk of the message that is gonna be sended to the BPM engine
-_getMessage = (args, req, res) ->
-	model = _getModel.call(@, args, req, res)
+_getMessage = (args) ->
+	model = _getModel.call(@, args)
 	modelXML = model.toXML();
 	# Get the Message
 	Message = @api.getMessage(@operation.constructor.MESSAGE)

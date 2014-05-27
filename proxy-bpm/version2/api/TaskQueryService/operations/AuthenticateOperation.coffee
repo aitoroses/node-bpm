@@ -9,7 +9,7 @@ class AuthenticateOperation
 
 	# Generate the model for the message
 	# @return [Object], Generated model
-	model: (req, res) ->
+	model: ->
 		Credential = @api.getType("Credential")
 		new Credential(@args.login, @args.password)
 
@@ -39,34 +39,7 @@ class AuthenticateOperation
 	#   # Does not use the namespace with this alternative syntax
 	#   
 	#   process: -> true
-	process: (req, res, response) -> 
-		"workflowContext": -> 
-			# Remember Cookie
-			res.cookie("adfbridge.token", @find("token").val, {maxAge: 900000, httpOnly: false})
-			return {
-				credential:
-					login: @find("login").val
-					identityContext: @find("identityContext").val
-				token: @find("token").val
-				locale: @find("locale").val
-				timeZone: @find("timeZone").val
-			}
-
-	# API testing
-	test: 
-		args: 
-			login: "comdirector15"
-			password: "welcome1"
-		
-		expect: 
-			"should return workflowContext" : (result) ->
-				result.workflowContext.should.be.a "object"
-
-			"should have a login" : (result) ->
-				result.workflowContext.credential.login.should.be.a "string"
-				
-			"should have a token" : (result) ->
-				result.workflowContext.token.should.be.a "string"
+	process: -> true
 	
 	
 

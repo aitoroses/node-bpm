@@ -14,11 +14,7 @@ class GetTaskDetailsByIdOperation
 		TaskDetailsByIdRequest = @api.getType("TaskDetailsByIdRequest")
 
 		credential = if @args.login? then new Credential(@args.login, @args.password) else new Credential
-
-		# Session?
-		token = @args.token || req.cookies["adfbridge.token"]
-		
-		workflow = new WorkflowContext(token, credential)
+		workflow = new WorkflowContext(@args.token, credential)
 		
 		new TaskDetailsByIdRequest workflow, @args.taskId
 
