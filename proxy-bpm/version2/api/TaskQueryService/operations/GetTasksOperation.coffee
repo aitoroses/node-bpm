@@ -4,7 +4,7 @@ class GetTasksOperation
 	@MESSAGE: "GetTasksMessage"
 
 	# @property [String]
-	#@METHOD: "POST"
+	@METHOD: "POST"
 
 	# Generate the model for the message
 	# @return [Object], Generated model

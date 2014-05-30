@@ -22,11 +22,11 @@ class AuthenticateOperation
 	#   process: -> 
 	# 	  "workflowContext": -> 
 	# 		  credential: 
-	# 			  login: @find("com:login").val
-	# 			  password: @find("com:password").val
-	# 		  token: @find("com:token").val
-	# 		  locale: @find("com:locale").val
-	# 		  timezone: @find("com:timeZone").val
+	# 			  login: @find("login").val
+	# 			  password: @find("password").val
+	# 		  token: @find("token").val
+	# 		  locale: @find("locale").val
+	# 		  timezone: @find("timeZone").val
 	#
 	#   ## Alternative Syntax
 	#   # This way nodes are not processed and instead the entire nodes are returned
@@ -39,8 +39,14 @@ class AuthenticateOperation
 	#   # Does not use the namespace with this alternative syntax
 	#   
 	#   process: -> true
-	process: -> true
-	
-	
+	process: -> 
+
+		"workflowContext": -> 
+			credential: 
+				login: @find("login").val
+			token: @find("token").val
+			locale: @find("locale").val
+			timezone: @find("timeZone").val
+		
 
 module.exports = AuthenticateOperation
